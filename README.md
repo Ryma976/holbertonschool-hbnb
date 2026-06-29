@@ -1,16 +1,27 @@
+# 0. High-Level Package Diagram
+
+## 1. Architectural Overview & Objective
+The primary objective of this task is to establish a solid structural blueprint for the HBnB application through a **Three-Tier Layered Architecture**. By decoupling responsibilities across specialized layers and introducing the **Facade Design Pattern**, we ensure that the application remains scalable, easily testable, and maintainable.
+
+---
+
+## 2. Package Diagram (Mermaid.js Core)
+*Note: GitHub natively renders the Mermaid block below into an interactive, high-quality visual diagram within your repository documentation.*
+
+```mermaid
 graph TB
-    %% Presentation Layer Package
-    subgraph Presentation_Layer ["Package: Presentation Layer (UI / API)"]
+    %% Presentation Layer Package Boundary
+    subgraph Presentation_Layer ["Package: Presentation Layer (UI & API Ecosystem)"]
         direction LR
-        API[API Endpoints / Routers] --> Services[Request Services]
+        API[API Endpoints / Routers] --> Services[Request Controllers]
     end
 
-    %% Business Logic Layer Package
-    subgraph Business_Logic_Layer ["Package: Business Logic Layer (Core Domain)"]
+    %% Business Logic Layer Package Boundary
+    subgraph Business_Logic_Layer ["Package: Business Logic Layer (Core Domain Object)"]
         direction TB
-        Facade[HBnB Application Facade]
+        Facade[HBnB Unified Application Facade]
         
-        subgraph Domain_Models ["Sub-Package: Core Models"]
+        subgraph Domain_Models ["Sub-Package: Core Enterprise Models"]
             M1[User Model]
             M2[Place Model]
             M3[Review Model]
@@ -20,17 +31,17 @@ graph TB
         Facade --> Domain_Models
     end
 
-    %% Persistence Layer Package
-    subgraph Persistence_Layer ["Package: Persistence Layer (Data Access)"]
+    %% Persistence Layer Package Boundary
+    subgraph Persistence_Layer ["Package: Persistence Layer (Data Durability System)"]
         direction LR
         Repo[Data Repositories / DAOs] --> DB[(Database / In-Memory Storage)]
     end
 
-    %% Inter-Layer Communication via Facade
-    Services -->|1. Invokes Unified Interface| Facade
-    Domain_Models -->|2. Persists / Fetches Data| Repo
+    %% Communication Flow Pipelines via Facade Pattern
+    Services -->|1. Invokes Unified Method Interface| Facade
+    Domain_Models -->|2. Offloads Object States / Fetches| Repo
 
-    %% Styling for Professional Look
+    %% Formatting Elements for High-Contrast Visual Delivery
     style Presentation_Layer fill:#f9f0ff,stroke:#d3adf7,stroke-width:2px
     style Business_Logic_Layer fill:#e6f7ff,stroke:#91d5ff,stroke-width:2px
     style Persistence_Layer fill:#f6ffed,stroke:#b7eb8f,stroke-width:2px
