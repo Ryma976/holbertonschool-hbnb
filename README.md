@@ -35,6 +35,7 @@ classDiagram
             +DatabaseRepository
         }
     }
+```
 
     API_Endpoints --> HBnB_Facade : Uses Facade
     HBnB_Facade --> Core_Models : Manages
