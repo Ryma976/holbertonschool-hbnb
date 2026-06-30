@@ -156,3 +156,65 @@ sequenceDiagram
 
 
 ```
+#2. Place Creation 
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client as Owner (User)
+    participant API as Presentation (PlaceAPI)
+    participant Facade as BLL (HBnB Facade)
+    participant Model as BLL (Place Model)
+    participant DB as Persistence (PlaceRepository)
+
+    Client->>API: POST /api/v1/places (JSON payload)
+    API->>API: Validate Base Required Fields
+    API->>Facade: create_place(place_data)
+    Facade->>Model: Initialize Place (Link to owner_id)
+    Model->>Model: Validate Price (> 0) & Coordinates
+    Model->>DB: save(place_instance)
+    DB-->>Model: Confirm Save Operation
+    Model-->>Facade: Return Place Entity
+    Facade-->>API: Return Place DTO Data
+    API-->>Client: HTTP 201 Created (JSON Place Object)
+```
+---
+#3. Review Submission 
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client as Reviewer (User)
+    participant API as Presentation (ReviewAPI)
+    participant Facade as BLL (HBnB Facade)
+    participant Model as BLL (Review Model)
+    participant DB as Persistence (ReviewRepository)
+
+    Client->>API: POST /api/v1/reviews (JSON payload)
+    API->>Facade: add_review(review_data)
+    Facade->>Model: Instantiate Review (user_id & place_id)
+    Model->>Model: Validate Rating Range (e.g., 1-5)
+    Model->>DB: save(review_instance)
+    DB-->>Model: Confirm Save Operation
+    Model-->>Facade: Review Processed Successfully
+    Facade-->>API: Return Review DTO Data
+    API-->>Client: HTTP 201 Created (JSON Review Object)
+```
+---
+#4. Fetching a List of Places 
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client as User / Client
+    participant API as Presentation (PlaceAPI)
+    participant Facade as BLL (HBnB Facade)
+    participant DB as Persistence (PlaceRepository)
+
+    Client->>API: GET /api/v1/places (Optional Filters)
+    API->>Facade: get_places(filters)
+    Facade->>DB: fetch_all_matching(filters)
+    DB-->>Facade: Return List of Place Entities
+    Facade->>Facade: Convert Entities to DTOs / JSON Format
+    Facade-->>API: Return Formatted Data List
+    API-->>Client: HTTP 200 OK (Array of Places)
+```
+---
+
