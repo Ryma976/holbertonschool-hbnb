@@ -237,30 +237,31 @@ These diagrams provide a clear overview of:
 
 They collectively explain how the HBnB application is designed and how data flows across its layers.
 ---
+##     Resources
 
+### UML Basics
+- *OOP – Introduction to UML*
+
+### Package Diagrams
+- *UML Package Diagram Overview*  
+- *UML Package Diagrams Guide*
+
+### Class Diagrams
+- *UML Class Diagram Tutorial*  
+- *How to Draw UML Class Diagrams*
+
+### Sequence Diagrams
+- *UML Sequence Diagram Tutorial*  
+- *Understanding Sequence Diagrams*
+
+### Diagram Tools
+- Mermaid.js  
+- draw.io  
+
+---
 ## Authors:
 - Reem Alanazi
 - Bayadir Aldossari
 - Shomokh Aldossari
 
 ---
-# Resources:
-UML Basics
-
-[Concept Page] OOP - Introduction to UML
-Package Diagrams
-
-UML Package Diagram Overview
-UML Package Diagrams Guide
-Class Diagrams
-
-UML Class Diagram Tutorial
-How to Draw UML Class Diagrams
-Sequence Diagrams
-
-UML Sequence Diagram Tutorial
-Understanding Sequence Diagrams
-General Diagram Tools
-
-Mermaid.js Documentation
-draw.io
