@@ -15,6 +15,15 @@ The documentation includes:
 
 This diagram presents the overall architecture of the application using a three-layer design. It also illustrates how the Presentation Layer communicates with the Business Logic Layer through the Facade pattern, while the Business Logic Layer interacts with the Persistence Layer for data storage.
 . Package Diagram
+### Description
+
+Illustrates the 3-tier architecture (Presentation, Business Logic, Persistence) and uses the **Facade Pattern** to decouple layers.
+
+* **Presentation Layer**: Handles API endpoints, user interface interactions.
+* **Business Logic Layer**: Contains core operations and validation logic.
+* **Persistence Layer**: Manages database interactions.
+
+---
 
 ```mermaid
 classDiagram
