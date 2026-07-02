@@ -1,11 +1,15 @@
-This document contains the technical documentation for HBnB Evolution Part 1. It includes the high-level package diagram, business logic class diagram, and sequence diagrams required for the system design.
+# HBnB Evolution - Part 1: Technical Documentation
 
-HBnB Evolution - Part 1: Technical Documentation
+This document contains the technical documentation for HBnB Evolution Part 1.
 
-Task 0: High-Level Package Diagram
+It includes:
+- High-Level Package Diagram
+- Business Logic Class Diagram
+- Sequence Diagrams
 
-📊 Interactive High-Level Package Diagram
+These diagrams describe the system architecture, business logic, and API interaction flow.
 
+📊Task 0: High-Level Package Diagram
 ```mermaid
 classDiagram
     namespace Presentation_Layer {
