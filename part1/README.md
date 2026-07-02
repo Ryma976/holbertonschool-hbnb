@@ -1,8 +1,18 @@
-HBnB Evolution - Part 1: Technical Documentation
+# HBnB Evolution - Part 1: Technical Documentation
 
-Task 0: High-Level Package Diagram
+This document presents the technical design of the HBnB Evolution application (Part 1). It provides the UML diagrams that describe the system architecture, the main business entities, and the interactions between application layers.
 
-📊 Interactive High-Level Package Diagram
+The documentation includes:
+
+- High-Level Package Diagram
+- Business Logic Class Diagram
+- Sequence Diagrams
+
+---
+
+## Task 0: High-Level Package Diagram
+
+This diagram presents the overall architecture of the application using a three-layer design. It also illustrates how the Presentation Layer communicates with the Business Logic Layer through the Facade pattern, while the Business Logic Layer interacts with the Persistence Layer for data storage.
 
 ```mermaid
 classDiagram
@@ -22,6 +32,7 @@ classDiagram
             +create_place()
             +add_review()
         }
+
         class Core_Models {
             +User
             +Place
@@ -40,13 +51,16 @@ classDiagram
     API_Endpoints --> HBnB_Facade : Uses Facade
     HBnB_Facade --> Core_Models : Manages
     Core_Models --> Repository : Persists Data
-
 ```
-----
-# 1. Detailed Class Diagram for Business Logic Layer
+
+---
+
+## Task 1: Detailed Class Diagram for Business Logic Layer
+
+The following class diagram represents the main business entities of the system. It includes their attributes, operations, inheritance relationships, and associations that define how the entities interact with one another.
+
 ```mermaid
 classDiagram
-    %% Core System Components & Interfaces
     class BaseEntity {
         <<Abstract>>
         +UUID4 id
@@ -92,7 +106,6 @@ classDiagram
         +create_amenity() bool
     }
 
-    %% Relationships and Design Patterns
     BaseEntity <|-- User : Generalization (Inheritance)
     BaseEntity <|-- Place : Generalization (Inheritance)
     BaseEntity <|-- Review : Generalization (Inheritance)
@@ -103,11 +116,16 @@ classDiagram
     Place "1" *-- "0..*" Review : Contains (Composition)
     Place "0..*" --> "0..*" Amenity : Associated With (Aggregation)
 ```
+
 ---
-# HBnB Evolution: Technical Documentation - Task 2 (Sequence Diagrams)
-#2. Sequence Diagrams for API Calls
-## 1. User Registration
-This diagram captures the workflow when a user signs up for a new account.
+
+## Task 2: Sequence Diagrams for API Calls
+
+The following sequence diagrams describe how requests move through the Presentation, Business Logic, and Persistence layers for common application operations.
+
+### 1. User Registration
+
+This sequence shows the process of creating a new user account, including input validation, uniqueness verification, data persistence, and the response returned to the client.
 
 ```mermaid
 sequenceDiagram
@@ -124,7 +142,7 @@ sequenceDiagram
     Facade->>Model: Validate Constraints (Email Unique)
     Model->>DB: find_by_email(email)
     DB-->>Model: Return User Object / None
-    
+
     alt Email already exists
         Model-->>Facade: Raise Exception (UserExistsError)
         Facade-->>API: Return Error Status Mapping
@@ -137,10 +155,12 @@ sequenceDiagram
         Facade-->>API: Return User DTO Data
         API-->>Client: HTTP 201 Created (JSON Representation)
     end
-
-
 ```
-#2. Place Creation 
+
+### 2. Place Creation
+
+This sequence illustrates how a new place is created, validated, stored, and returned to the client after successful processing.
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -161,8 +181,11 @@ sequenceDiagram
     Facade-->>API: Return Place DTO Data
     API-->>Client: HTTP 201 Created (JSON Place Object)
 ```
----
-#3. Review Submission 
+
+### 3. Review Submission
+
+This sequence demonstrates how a review is validated, saved, and returned after a successful submission.
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -182,8 +205,11 @@ sequenceDiagram
     Facade-->>API: Return Review DTO Data
     API-->>Client: HTTP 201 Created (JSON Review Object)
 ```
----
-#4. Fetching a List of Places 
+
+### 4. Fetching a List of Places
+
+This sequence describes how the application retrieves a filtered list of places and returns the formatted results to the client.
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -200,5 +226,3 @@ sequenceDiagram
     Facade-->>API: Return Formatted Data List
     API-->>Client: HTTP 200 OK (Array of Places)
 ```
----
-
