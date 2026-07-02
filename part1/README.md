@@ -83,6 +83,16 @@ This diagram represents the entities of this layer, their attributes, methods, a
 - Place
 - Review
 - Amenity
+### Explanation:
+
+
+Each core business entity is modeled with a base class that includes basic functionalities like creating, updating, and deleting entries:
+
+- The **Entity** base class provides common functionalities such as create, update, and delete for all business entities.
+- The **User** class manages user-related information and operations such as registering and updating user details.
+- The **Place** class represents accommodation listings, storing details like price and location.
+- the **Review** classe associated with a user place contains comments that user can give to a place.
+- the **Amenity** classe associated to user's place contains all the commodities belongin to a user's place
 
 The diagram details the attributes and methods, the relationships between classes (`1-to-N`, `N-to-N`), the timestamps (`created_at`, `updated_at`), and the unique identifiers (IDs).
 ```mermaid
