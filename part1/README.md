@@ -1,3 +1,4 @@
+#
 # HBnB Evolution - Part 1: Technical Documentation
 
 This document presents the technical design of the HBnB Evolution application (Part 1). It provides the UML diagrams that describe the system architecture, the main business entities, and the interactions between application layers.
@@ -13,6 +14,7 @@ The documentation includes:
 ## Task 0: High-Level Package Diagram
 
 This diagram presents the overall architecture of the application using a three-layer design. It also illustrates how the Presentation Layer communicates with the Business Logic Layer through the Facade pattern, while the Business Logic Layer interacts with the Persistence Layer for data storage.
+. Package Diagram
 
 ```mermaid
 classDiagram
@@ -226,3 +228,19 @@ sequenceDiagram
     Facade-->>API: Return Formatted Data List
     API-->>Client: HTTP 200 OK (Array of Places)
 ```
+---
+### Conclusion
+
+These diagrams provide a clear overview of:
+- System **structure** (Class & Package diagrams)
+- System **behavior** (Sequence diagrams)
+
+They collectively explain how the HBnB application is designed and how data flows across its layers.
+---
+
+## Authors:
+- Reem Alanazi
+- Bayadir Aldossari
+- Shomokh Aldossari
+
+---
