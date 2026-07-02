@@ -1,0 +1,33 @@
+## 0. High-Level Package Diagram
+
+```mermaid
+classDiagram
+    class PresentationLayer {
+        <<Package>>
+        +UserAPI
+        +PlaceAPI
+        +ReviewAPI
+        +AmenityAPI
+    }
+
+    class BusinessLogicLayer {
+        <<Package>>
+        +HBnBFacade <<Interface>>
+        +UserModel
+        +PlaceModel
+        +ReviewModel
+        +AmenityModel
+    }
+
+    class PersistenceLayer {
+        <<Package>>
+        +UserRepository
+        +PlaceRepository
+        +ReviewRepository
+        +AmenityRepository
+        +DatabaseContext
+    }
+
+    PresentationLayer --> BusinessLogicLayer : Calls via HBnBFacade
+    BusinessLogicLayer --> PersistenceLayer : Performs Database Operations
+```
