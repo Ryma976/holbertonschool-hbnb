@@ -9,7 +9,10 @@ It includes:
 
 These diagrams describe the system architecture, business logic, and API interaction flow.
 
-📊Task 0: High-Level Package Diagram
+---
+
+## Task 0: High-Level Package Diagram
+
 ```mermaid
 classDiagram
     namespace Presentation_Layer {
@@ -28,6 +31,7 @@ classDiagram
             +create_place()
             +add_review()
         }
+
         class Core_Models {
             +User
             +Place
@@ -46,13 +50,14 @@ classDiagram
     API_Endpoints --> HBnB_Facade : Uses Facade
     HBnB_Facade --> Core_Models : Manages
     Core_Models --> Repository : Persists Data
-
 ```
-----
-# 1. Detailed Class Diagram for Business Logic Layer
+
+---
+
+## Task 1: Detailed Class Diagram for Business Logic Layer
+
 ```mermaid
 classDiagram
-    %% Core System Components & Interfaces
     class BaseEntity {
         <<Abstract>>
         +UUID4 id
@@ -98,7 +103,6 @@ classDiagram
         +create_amenity() bool
     }
 
-    %% Relationships and Design Patterns
     BaseEntity <|-- User : Generalization (Inheritance)
     BaseEntity <|-- Place : Generalization (Inheritance)
     BaseEntity <|-- Review : Generalization (Inheritance)
@@ -109,10 +113,13 @@ classDiagram
     Place "1" *-- "0..*" Review : Contains (Composition)
     Place "0..*" --> "0..*" Amenity : Associated With (Aggregation)
 ```
+
 ---
-# HBnB Evolution: Technical Documentation - Task 2 (Sequence Diagrams)
-#2. Sequence Diagrams for API Calls
-## 1. User Registration
+
+## Task 2: Sequence Diagrams for API Calls
+
+### 1. User Registration
+
 This diagram captures the workflow when a user signs up for a new account.
 
 ```mermaid
@@ -130,7 +137,7 @@ sequenceDiagram
     Facade->>Model: Validate Constraints (Email Unique)
     Model->>DB: find_by_email(email)
     DB-->>Model: Return User Object / None
-    
+
     alt Email already exists
         Model-->>Facade: Raise Exception (UserExistsError)
         Facade-->>API: Return Error Status Mapping
@@ -143,10 +150,10 @@ sequenceDiagram
         Facade-->>API: Return User DTO Data
         API-->>Client: HTTP 201 Created (JSON Representation)
     end
-
-
 ```
-#2. Place Creation 
+
+### 2. Place Creation
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -167,8 +174,9 @@ sequenceDiagram
     Facade-->>API: Return Place DTO Data
     API-->>Client: HTTP 201 Created (JSON Place Object)
 ```
----
-#3. Review Submission 
+
+### 3. Review Submission
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -188,8 +196,9 @@ sequenceDiagram
     Facade-->>API: Return Review DTO Data
     API-->>Client: HTTP 201 Created (JSON Review Object)
 ```
----
-#4. Fetching a List of Places 
+
+### 4. Fetching a List of Places
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -206,5 +215,3 @@ sequenceDiagram
     Facade-->>API: Return Formatted Data List
     API-->>Client: HTTP 200 OK (Array of Places)
 ```
----
-
