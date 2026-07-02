@@ -228,7 +228,15 @@ sequenceDiagram
     Facade-->>API: Return Formatted Data List
     API-->>Client: HTTP 200 OK (Array of Places)
 ```
+---## Design Considerations
+
+- Clear separation between layers
+- Business Logic is isolated from direct database access
+- API acts as the system entry point
+- UML standards followed for clarity and consistency
+
 ---
+
 ### Conclusion
 
 These diagrams provide a clear overview of:
