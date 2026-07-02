@@ -228,7 +228,8 @@ sequenceDiagram
     Facade-->>API: Return Formatted Data List
     API-->>Client: HTTP 200 OK (Array of Places)
 ```
----## Design Considerations
+---
+## Design Considerations
 
 - Clear separation between layers
 - Business Logic is isolated from direct database access
