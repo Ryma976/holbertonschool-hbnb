@@ -244,3 +244,23 @@ They collectively explain how the HBnB application is designed and how data flow
 - Shomokh Aldossari
 
 ---
+# Resources:
+UML Basics
+
+[Concept Page] OOP - Introduction to UML
+Package Diagrams
+
+UML Package Diagram Overview
+UML Package Diagrams Guide
+Class Diagrams
+
+UML Class Diagram Tutorial
+How to Draw UML Class Diagrams
+Sequence Diagrams
+
+UML Sequence Diagram Tutorial
+Understanding Sequence Diagrams
+General Diagram Tools
+
+Mermaid.js Documentation
+draw.io
