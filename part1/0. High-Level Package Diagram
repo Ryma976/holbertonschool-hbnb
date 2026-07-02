@@ -1,33 +1,36 @@
-## 0. High-Level Package Diagram
-
-```mermaid
 classDiagram
-    class PresentationLayer {
-        <<Package>>
-        +UserAPI
-        +PlaceAPI
-        +ReviewAPI
-        +AmenityAPI
+    namespace Presentation_Layer {
+        class API_Endpoints {
+            +UserRoutes
+            +PlaceRoutes
+            +ReviewRoutes
+            +AmenityRoutes
+        }
     }
 
-    class BusinessLogicLayer {
-        <<Package>>
-        +HBnBFacade <<Interface>>
-        +UserModel
-        +PlaceModel
-        +ReviewModel
-        +AmenityModel
+    namespace Business_Logic_Layer {
+        class HBnB_Facade {
+            <<Interface>>
+            +register_user()
+            +create_place()
+            +add_review()
+        }
+
+        class Core_Models {
+            +User
+            +Place
+            +Review
+            +Amenity
+        }
     }
 
-    class PersistenceLayer {
-        <<Package>>
-        +UserRepository
-        +PlaceRepository
-        +ReviewRepository
-        +AmenityRepository
-        +DatabaseContext
+    namespace Persistence_Layer {
+        class Repository {
+            +InMemoryRepository
+            +DatabaseRepository
+        }
     }
 
-    PresentationLayer --> BusinessLogicLayer : Calls via HBnBFacade
-    BusinessLogicLayer --> PersistenceLayer : Performs Database Operations
-```
+    API_Endpoints --> HBnB_Facade : Uses Facade
+    HBnB_Facade --> Core_Models : Manages
+    Core_Models --> Repository : Persists Data
