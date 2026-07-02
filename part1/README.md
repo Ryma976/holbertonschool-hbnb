@@ -167,7 +167,22 @@ Sequence diagrams help visualize how different system components interact to add
 ### 1. User Registration
 
 This sequence shows the process of creating a new user account, including input validation, uniqueness verification, data persistence, and the response returned to the client.
+### Use Case
+A user registers a new account.
 
+### Flow
+1. User sends `data (user)`
+2. API forwards request to Business Logic to transfer data to register user
+3. Business Logic saves user data in the Database
+4. Database confirms creation
+5. API returns `201 Created` response
+
+### Layers Involved
+- User
+- API
+- Business Logic
+- Database
+  
 ```mermaid
 sequenceDiagram
     autonumber
@@ -201,6 +216,21 @@ sequenceDiagram
 ### 2. Place Creation
 
 This sequence illustrates how a new place is created, validated, stored, and returned to the client after successful processing.
+### Use Case
+A user creates a new place listing.
+
+### Flow
+1. User sends `data (place)`
+2. API calls Business Logic
+3. Business Logic creates place
+4. Database saves creation
+5. API returns `201 Created`
+
+### Layers Involved
+- User
+- API
+- Business Logic
+- Database
 
 ```mermaid
 sequenceDiagram
@@ -224,6 +254,22 @@ sequenceDiagram
 ```
 
 ### 3. Review Submission
+### Use Case
+A user submits a review for a specific place.
+
+### Flow
+1. User sends a post review request to the API.
+2. API forwards the request to the Business Logic to Create review.
+3. Business Logic instructs the Database to Save review.
+4. Database confirms the action with a Review created message.
+5. Business Logic confirms completion to the API by sending Return review.
+6. API delivers a Success response back to the user.
+
+### Layers Involved
+- User
+- API
+- Business Logic
+- Database
 
 This sequence demonstrates how a review is validated, saved, and returned after a successful submission.
 
@@ -250,7 +296,22 @@ sequenceDiagram
 ### 4. Fetching a List of Places
 
 This sequence describes how the application retrieves a filtered list of places and returns the formatted results to the client.
+### Use Case
+A user requests a list of all available places.
 
+### Flow
+1. User sends a Request (list of places) to the API.
+2. API calls the Business Logic layer to Filter Places based on criteria.
+3. Business Logic communicates with the Database to Fetch places.
+4. Database retrieves the data and sends return places back to the Business Logic.
+5. Business Logic processes the data and sends Return list to the API.
+6. API returns a Receive list (success) response to the user.
+
+### Layers Involved
+- User
+- API
+- Business Logic
+- Database
 ```mermaid
 sequenceDiagram
     autonumber
