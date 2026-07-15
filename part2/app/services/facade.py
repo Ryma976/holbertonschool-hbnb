@@ -1,45 +1,40 @@
+from app.persistence.repository import InMemoryRepository
 from app.models.user import User
 from app.models.amenity import Amenity
 from app.models.place import Place
-from app.models.review import Review
-from app.persistence.repository import InMemoryRepository
 
 class HBnBFacade:
     def __init__(self):
         self.user_repo = InMemoryRepository()
-        self.amenity_repo = InMemoryRepository()
         self.place_repo = InMemoryRepository()
         self.review_repo = InMemoryRepository()
+        self.amenity_repo = InMemoryRepository()
 
-    # --- USER OPERATIONS ---
+    # --- USER METHODS ---
     def create_user(self, user_data):
-        for u in self.user_repo.get_all():
-            if u.email == user_data['email']:
-                raise ValueError("Email already exists.")
-        user = User(
-            first_name=user_data['first_name'],
-            last_name=user_data['last_name'],
-            email=user_data['email']
-        )
+        user = User(**user_data)
         self.user_repo.add(user)
         return user
 
     def get_user(self, user_id):
         return self.user_repo.get(user_id)
 
+    def get_user_by_email(self, email):
+        return self.user_repo.get_by_attribute('email', email)
+
     def get_all_users(self):
         return self.user_repo.get_all()
 
     def update_user(self, user_id, user_data):
-        return self.user_repo.update(user_id, user_data)
+        user = self.get_user(user_id)
+        if not user:
+            raise ValueError("User not found.")
+        self.user_repo.update(user_id, user_data)
+        return user
 
-    # --- AMENITY OPERATIONS ---
+    # --- AMENITY METHODS (Task 3) ---
     def create_amenity(self, amenity_data):
-        # منع تكرار نفس الاسم للخدمة
-        for am in self.amenity_repo.get_all():
-            if am.name.lower() == amenity_data['name'].lower():
-                raise ValueError("Amenity already exists.")
-        amenity = Amenity(name=amenity_data['name'])
+        amenity = Amenity(**amenity_data)
         self.amenity_repo.add(amenity)
         return amenity
 
@@ -50,23 +45,27 @@ class HBnBFacade:
         return self.amenity_repo.get_all()
 
     def update_amenity(self, amenity_id, amenity_data):
-        return self.amenity_repo.update(amenity_id, amenity_data)
+        amenity = self.get_amenity(amenity_id)
+        if not amenity:
+            raise ValueError("Amenity not found.")
+        self.amenity_repo.update(amenity_id, amenity_data)
+        return amenity
 
-    # --- PLACE OPERATIONS ---
+    # --- PLACE METHODS ---
     def create_place(self, place_data):
-        # التأكد من أن المالك موجود في النظام أولاً
-        owner = self.get_user(place_data['owner_id'])
+        owner_id = place_data.get('owner_id')
+        owner = self.get_user(owner_id)
         if not owner:
             raise ValueError("Owner not found.")
+
+        amenity_ids = place_data.pop('amenity_ids', [])
+        place = Place(**place_data)
         
-        place = Place(
-            title=place_data['title'],
-            description=place_data.get('description', ''),
-            price=place_data['price'],
-            latitude=place_data['latitude'],
-            longitude=place_data['longitude'],
-            owner_id=place_data['owner_id']
-        )
+        for amenity_id in amenity_ids:
+            amenity = self.get_amenity(amenity_id)
+            if amenity:
+                place.add_amenity(amenity.id)
+
         self.place_repo.add(place)
         return place
 
@@ -77,45 +76,20 @@ class HBnBFacade:
         return self.place_repo.get_all()
 
     def update_place(self, place_id, place_data):
-        # التحقق من وجود المكان قبل التعديل
         place = self.get_place(place_id)
         if not place:
-            return None
-        return self.place_repo.update(place_id, place_data)
-
-    # --- REVIEW OPERATIONS ---
-    def create_review(self, review_data):
-        # التأكد من صحة معرف المستخدم والمكان
-        user = self.get_user(review_data['user_id'])
-        if not user:
-            raise ValueError("User not found.")
-        place = self.get_place(review_data['place_id'])
-        if not place:
             raise ValueError("Place not found.")
+            
+        if 'owner_id' in place_data:
+            del place_data['owner_id']
+            
+        if 'amenity_ids' in place_data:
+            amenity_ids = place_data.pop('amenity_ids')
+            place.amenities = []
+            for amenity_id in amenity_ids:
+                amenity = self.get_amenity(amenity_id)
+                if amenity:
+                    place.add_amenity(amenity.id)
 
-        review = Review(
-            text=review_data['text'],
-            rating=review_data['rating'],
-            place_id=review_data['place_id'],
-            user_id=review_data['user_id']
-        )
-        self.review_repo.add(review)
-        return review
-
-    def get_review(self, review_id):
-        return self.review_repo.get(review_id)
-
-    def get_all_reviews(self):
-        return self.review_repo.get_all()
-
-    def get_reviews_by_place(self, place_id):
-        return [r for r in self.review_repo.get_all() if r.place_id == place_id]
-
-    def update_review(self, review_id, review_data):
-        return self.review_repo.update(review_id, review_data)
-
-    def delete_review(self, review_id):
-        if self.review_repo.get(review_id):
-            self.review_repo.delete(review_id)
-            return True
-        return False
+        self.place_repo.update(place_id, place_data)
+        return place
