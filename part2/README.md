@@ -55,10 +55,10 @@ hbnb/
 ├── config.py
 ├── requirements.txt
 ├── README.md
----
-## Authors:
+
+##Authors:
+`````
 - Reem Alanazi
 - Bayadir Aldossari
 - Shomokh Aldossari
-
 ---
