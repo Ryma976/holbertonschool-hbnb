@@ -74,16 +74,7 @@ hbnb/
 │       ├── __init__.py
 │       ├── repository.py
 ├── tests/
-│   ├── test_amenity.py
-│   ├── test_BaseModel.py
-│   ├── test_facade.py
-│   ├── test_place.py
-│   ├── test_review.py
-│   ├── test_user.py
-│   ├── TestAmenitiesAPI.py
-│   ├── TestPlacesAPI.py
-│   ├── TestReviewsAPI.py
-│   ├── TestUsersAPI.py
+│   ├── Test_api.py
 ├── run.py
 ├── config.py
 ├── requirements.txt
