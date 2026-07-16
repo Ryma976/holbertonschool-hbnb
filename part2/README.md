@@ -28,6 +28,52 @@ The application codebase is strictly organized into three independent layers to 
 |                      PERSISTENCE LAYER                      |
 |                (InMemoryRepository Storage)                 |
 +-------------------------------------------------------------+
+---
+
+## Technical Directory Structure
+```text
+hbnb/
+├── app/
+│   ├── __init__.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── v1/
+│   │       ├── __init__.py
+│   │       ├── users.py
+│   │       ├── places.py
+│   │       ├── reviews.py
+│   │       ├── amenities.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── Base_Model.py
+│   │   ├── user.py
+│   │   ├── place.py
+│   │   ├── review.py
+│   │   ├── amenity.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── facade.py
+│   ├── persistence/
+│       ├── __init__.py
+│       ├── repository.py
+├── tests/
+│   ├── test_amenity.py
+│   ├── test_BaseModel.py
+│   ├── test_facade.py
+│   ├── test_place.py
+│   ├── test_review.py
+│   ├── test_user.py
+│   ├── TestAmenitiesAPI.py
+│   ├── TestPlacesAPI.py
+│   ├── TestReviewsAPI.py
+│   ├── TestUsersAPI.py
+├── run.py
+├── config.py
+├── requirements.txt
+├── README.mdx
+`````
+
+
 `````
 
 ##Authors:
