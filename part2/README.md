@@ -28,8 +28,23 @@ The application codebase is strictly organized into three independent layers to 
 |                      PERSISTENCE LAYER                      |
 |                (InMemoryRepository Storage)                 |
 +-------------------------------------------------------------+
----
 `````
+
+### 2. The Facade Design Pattern
+To prevent tight coupling between the Presentation Layer (API Endpoints) and the Business Logic Layer (Models/Repository), we integrated the Facade Pattern (HBnBFacade).
+
+Instead of the API Endpoints calling the Repository or creating Models directly, all requests funnel through a single entry point:
+
+Simplification: API endpoints don't need to know how the models establish relationships (e.g., how a Place links to an owner_id or registers amenity_ids).
+
+Decoupling: If we later change how data is validated, stored, or managed under the hood, we only modify the Facade class without breaking any API endpoint codes.
+
+### 3. Understanding In-Memory Persistence in HBnB
+Since SQL-backed databases will be integrated later in Part 3, we use a fully functional InMemoryRepository class to handle storage operations temporarily during application runtime.
+
+It utilizes standard Python dictionaries to store data objects as key-value pairs indexed by unique IDs (UUID).
+
+It abstracts storage functions (add, get, get_all, update, delete) using abstract methods so that when we swap to SQL-Alchemy in Part 3, the codebase switch will be seamless.
 
 ## Technical Directory Structure
 The project directory structure is set up cleanly according to standard Python packaging best practices:
@@ -72,9 +87,23 @@ hbnb/
 ├── run.py
 ├── config.py
 ├── requirements.txt
-├── README.mdx
+├── README.md
 `````
+### How to Run and Test the Application
+1. Installation
+Navigate to the part2 directory and install the necessary requirements:
+cd part2
+pip install -r requirements.txt
 
+### 2. Run Server
+Execute the application entry script:
+python run.py
+
+###3. Interactive Testing (Swagger UI)
+Open your web browser and navigate to:
+[http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+
+You can use the interactive Swagger UI panel to perform, test, and document all CRUD requests on Users, Amenities, Places, and Reviews.
 
 ##Authors:
 - Reem Alanazi
