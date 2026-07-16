@@ -89,8 +89,58 @@ hbnb/
 ├── requirements.txt
 ├── README.md
 `````
+## 🛠️ Task 1: Core Business Logic Classes
+We implemented the core domain models using Object-Oriented Programming (OOP) principles, ensuring correct relationships and strict attribute validation:
 
+BaseModel (Base_Model.py): Universal parent entity class generating IDs via UUID4 and tracking creation (created_at) and modification (updated_at) timestamps.
 
+User (user.py): Validates email format patterns, first name, and last name.
+
+Amenity (amenity.py): Enforces non-empty descriptors (e.g., WiFi, Pool).
+
+Place (place.py): Establishes compositional association with its owner and amenities, and enforces positive numeric limits for price, latitude, and longitude.
+
+Review (review.py): Captures feedback. Enforces rating metrics strictly within a 1-to-5 star threshold and connects a user_id to a place_id
+## 📬 API Endpoints (Tasks 2, 3, 4, & 5)
+Our RESTful API is built using Flask-RESTx, which auto-generates interactive Swagger documentation.
+
+1. Users Management (/api/v1/users/)
+POST / - Register a new user with email validation.
+
+GET / - Retrieve all registered users.
+
+GET /<user_id> - Get detailed user information.
+
+PUT /<user_id> - Update user details.
+
+2. Amenities Management (/api/v1/amenities/)
+POST / - Create a new amenity.
+
+GET / - Retrieve all amenities.
+
+GET /<amenity_id> - Get details of a specific amenity.
+
+PUT /<amenity_id> - Update an amenity's name/description.
+
+3. Places Management (/api/v1/places/)
+POST / - Create a place (validates that owner_id exists and maps amenity_ids).
+
+GET / - Retrieve all places.
+
+GET /<place_id> - Get detailed place info (includes nested serialized objects of the owner, list of amenities, and associated reviews).
+
+PUT /<place_id> - Update place details.
+
+4. Reviews Management (/api/v1/reviews/ - Task 5)
+POST / - Submit a review for a place (validates user_id, place_id, non-empty text, and a rating between 1 and 5).
+
+GET / - List all reviews.
+
+GET /<review_id> - Retrieve specific review details.
+
+PUT /<review_id> - Update a review's rating or text.
+
+DELETE /<review_id> - Deletes a review from the persistence layer (this is the only entity supporting deletion in this part).
 
 ### How to Run and Test the Application
 
@@ -111,9 +161,22 @@ Open your web browser and navigate to:
 [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
 You can use the interactive Swagger UI panel to perform, test, and document all CRUD requests on Users, Amenities, Places, and Reviews.
+## 🧪 Testing and Validation (Task 6)
+We have written comprehensive unit tests for both business logic (models) and API endpoints inside the tests/ directory.
 
-## Testing and Validation
-We have successfully tested all endpoints (Users, Amenities, Places, Reviews) using cURL. Here are the test results:
+Running Automated Unit Tests
+To run the entire test suite and verify that all validations, API status codes, and edge cases are handled correctly:
+
+```Bash
+python -m unittest discover -s tests
+```
+## Manual Testing with cURL
+You can also manually test endpoints. For example, creating a new review:
+```Bash
+curl -X POST "[http://127.0.0.1:5000/api/v1/reviews/](http://127.0.0.1:5000/api/v1/reviews/)" \
+     -H "Content-Type: application/json" \
+     -d '{"text": "Amazing place, highly recommended!", "rating": 5, "user_id": "<USER_ID>", "place_id": "<PLACE_ID>"}'
+```
 
 
 <img width="1582" height="896" alt="2" src="https://github.com/user-attachments/assets/cfe935f8-32ad-468e-b4bd-b62d41f4bea5" />
