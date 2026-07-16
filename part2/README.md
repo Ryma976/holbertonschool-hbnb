@@ -16,11 +16,17 @@ In this task, we implemented the fundamental core domain models following clean 
 ---
 
 ##Technology Stack
+
 -RESTful API endpoints
+
 -Input validation
+
 -Error handling
+
 -Swagger documentation
+
 -Automated unit testing
+
 ---
 ## Technical Directory Structure
 ```text
