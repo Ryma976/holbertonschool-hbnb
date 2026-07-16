@@ -104,7 +104,7 @@ Review (review.py): Captures feedback. Enforces rating metrics strictly within a
 ## 📬 API Endpoints (Tasks 2, 3, 4, & 5)
 Our RESTful API is built using Flask-RESTx, which auto-generates interactive Swagger documentation.
 
-1. Users Management (/api/v1/users/)
+### 1. Users Management (/api/v1/users/)
 POST / - Register a new user with email validation.
 
 GET / - Retrieve all registered users.
@@ -113,7 +113,7 @@ GET /<user_id> - Get detailed user information.
 
 PUT /<user_id> - Update user details.
 
-2. Amenities Management (/api/v1/amenities/)
+### 2. Amenities Management (/api/v1/amenities/)
 POST / - Create a new amenity.
 
 GET / - Retrieve all amenities.
@@ -122,7 +122,7 @@ GET /<amenity_id> - Get details of a specific amenity.
 
 PUT /<amenity_id> - Update an amenity's name/description.
 
-3. Places Management (/api/v1/places/)
+### 3. Places Management (/api/v1/places/)
 POST / - Create a place (validates that owner_id exists and maps amenity_ids).
 
 GET / - Retrieve all places.
@@ -131,7 +131,7 @@ GET /<place_id> - Get detailed place info (includes nested serialized objects of
 
 PUT /<place_id> - Update place details.
 
-4. Reviews Management (/api/v1/reviews/ - Task 5)
+### 4. Reviews Management (/api/v1/reviews/ - Task 5)
 POST / - Submit a review for a place (validates user_id, place_id, non-empty text, and a rating between 1 and 5).
 
 GET / - List all reviews.
