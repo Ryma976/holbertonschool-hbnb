@@ -90,8 +90,10 @@ hbnb/
 ├── README.md
 `````
 ### How to Run and Test the Application
+
 1. Installation
 Navigate to the part2 directory and install the necessary requirements:
+
 cd part2
 pip install -r requirements.txt
 
