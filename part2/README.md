@@ -99,7 +99,7 @@ pip install -r requirements.txt
 Execute the application entry script:
 python run.py
 
-###3. Interactive Testing (Swagger UI)
+### 3. Interactive Testing (Swagger UI)
 Open your web browser and navigate to:
 [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
