@@ -14,12 +14,13 @@ In this task, we implemented the fundamental core domain models following clean 
 5. **Place (`app/models/place.py`):** The primary transaction entity. It establishes compositional associations by mapping property metadata against latitude/longitude global constraints and enforcing strictly positive numeric limits for pricing models.
 
 ---
+```
 ##Technology Stack
-RESTful API endpoints
-Input validation
-Error handling
-Swagger documentation
-Automated unit testing
+-RESTful API endpoints
+-Input validation
+-Error handling
+-Swagger documentation
+-Automated unit testing
 ---
 ## Technical Directory Structure
 ```text
