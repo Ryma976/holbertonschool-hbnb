@@ -95,6 +95,7 @@ hbnb/
 Navigate to the part2 directory and install the necessary requirements:
 
 cd part2
+
 pip install -r requirements.txt
 
 ### 2. Run Server
