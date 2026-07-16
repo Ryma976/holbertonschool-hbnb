@@ -193,8 +193,9 @@ pip install -r requirements.txt
 ```
 ### 2. Run Server
 Execute the application entry script:
+```bash
 python run.py
-
+```
 ### 3. Interactive Testing (Swagger UI)
 Open your web browser and navigate to:
 [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
