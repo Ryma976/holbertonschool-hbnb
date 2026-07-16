@@ -112,8 +112,18 @@ Open your web browser and navigate to:
 
 You can use the interactive Swagger UI panel to perform, test, and document all CRUD requests on Users, Amenities, Places, and Reviews.
 
+## Testing and Validation
+We have successfully tested all endpoints (Users, Amenities, Places, Reviews) using cURL. Here are the test results:
+
+
+<img width="1582" height="896" alt="2" src="https://github.com/user-attachments/assets/cfe935f8-32ad-468e-b4bd-b62d41f4bea5" />
+<img width="1695" height="903" alt="1" src="https://github.com/user-attachments/assets/425b0cc4-36a1-4a79-8758-5018f9c3a1c6" />
+
+
 ## Authors:
 - Reem Alanazi
 - Bayadir Aldossari
 - Shomokh Aldossari
 ---
+
+
