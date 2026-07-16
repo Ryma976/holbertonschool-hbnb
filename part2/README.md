@@ -15,6 +15,14 @@ In this task, we implemented the fundamental core domain models following clean 
 
 ---
 
+#Technologies Used
+
+Python
+Flask
+Flask-RESTx
+UUID
+In-Memory Storage
+---
 ## Technical Directory Structure
 ```text
 hbnb/
