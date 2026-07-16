@@ -31,7 +31,7 @@ The application codebase is strictly organized into three independent layers to 
 ---
 `````
 
-##Technical Directory Structure
+## Technical Directory Structure
 The project directory structure is set up cleanly according to standard Python packaging best practices:
 ```text
 hbnb/
