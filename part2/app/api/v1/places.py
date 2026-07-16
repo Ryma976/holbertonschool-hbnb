@@ -15,6 +15,14 @@ owner_model = api.model('PlaceOwner', {
     'email': fields.String(description='Email address')
 })
 
+# موديل مخصص لعرض التقييمات داخل تفاصيل المكان
+review_sub_model = api.model('PlaceReview', {
+    'id': fields.String(description='Review ID'),
+    'text': fields.String(description='Text of the review'),
+    'rating': fields.Integer(description='Rating (1-5)'),
+    'user_id': fields.String(description='User ID who wrote the review')
+})
+
 place_model = api.model('Place', {
     'title': fields.String(required=True, description='Title of the place'),
     'description': fields.String(description='Description of the place'),
@@ -64,13 +72,16 @@ class PlaceList(Resource):
 class PlaceResource(Resource):
     @api.response(200, 'Success')
     def get(self, place_id):
-        """Get place details by ID with owner and amenities details"""
+        """Get place details by ID with owner, amenities, and reviews details"""
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
 
         owner = facade.get_user(place.owner_id)
         amenities_list = [facade.get_amenity(aid) for aid in place.amenities]
+        
+        # جلب المراجعات الخاصة بهذا المكان من الـ Facade
+        reviews_list = facade.get_reviews_by_place(place_id)
 
         return {
             'id': place.id,
@@ -89,7 +100,13 @@ class PlaceResource(Resource):
                 'id': am.id,
                 'name': am.name,
                 'description': am.description
-            } for am in amenities_list if am]
+            } for am in amenities_list if am],
+            'reviews': [{
+                'id': r.id,
+                'text': r.text,
+                'rating': r.rating,
+                'user_id': r.user_id
+            } for r in reviews_list]  # عرض قائمة المراجعات هنا
         }, 200
 
     @api.expect(place_model)
@@ -103,3 +120,21 @@ class PlaceResource(Resource):
             return {'message': 'Place successfully updated'}, 200
         except ValueError as e:
             return {'error': str(e)}, 400
+
+# مسار إضافي مطلوب لجلب المراجعات الخاصة بمكان معين مباشرة
+@api.route('/<string:place_id>/reviews')
+@api.response(404, 'Place not found')
+class PlaceReviewList(Resource):
+    def get(self, place_id):
+        """Get all reviews for a specific place"""
+        place = facade.get_place(place_id)
+        if not place:
+            return {'error': 'Place not found'}, 404
+        
+        reviews_list = facade.get_reviews_by_place(place_id)
+        return [{
+            'id': r.id,
+            'text': r.text,
+            'rating': r.rating,
+            'user_id': r.user_id
+        } for r in reviews_list], 200
