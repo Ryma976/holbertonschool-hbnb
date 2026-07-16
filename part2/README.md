@@ -105,7 +105,7 @@ Open your web browser and navigate to:
 
 You can use the interactive Swagger UI panel to perform, test, and document all CRUD requests on Users, Amenities, Places, and Reviews.
 
-##Authors:
+## Authors:
 - Reem Alanazi
 - Bayadir Aldossari
 - Shomokh Aldossari
