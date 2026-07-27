@@ -1,5 +1,6 @@
 from app.models.base import BaseModel
 
+
 class Place(BaseModel):
     def __init__(self, title, description, price, latitude, longitude, owner_id):
         super().__init__()
@@ -9,7 +10,10 @@ class Place(BaseModel):
         self.latitude = self._validate_latitude(latitude)
         self.longitude = self._validate_longitude(longitude)
         self.owner_id = owner_id  # ربط بالـ User ID
-        self.amenities = []       # قائمة تحتوي على الـ Amenity IDs المضافة للمكان
+
+        # Relationships
+        self.reviews = []
+        self.amenities = []
 
     def _validate_title(self, title):
         if not title or len(title.strip()) > 100:
@@ -43,6 +47,10 @@ class Place(BaseModel):
             raise ValueError("Longitude must be between -180.0 and 180.0.")
         return val
 
-    def add_amenity(self, amenity_id):
-        if amenity_id not in self.amenities:
-            self.amenities.append(amenity_id)
+    def add_amenity(self, amenity):
+        if amenity not in self.amenities:
+            self.amenities.append(amenity)
+
+    def add_review(self, review):
+        if review not in self.reviews:
+            self.reviews.append(review)
