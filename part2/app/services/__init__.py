@@ -1,1 +1,1 @@
-from app.__init__ import facade
+from .facade import HBnBFacade
