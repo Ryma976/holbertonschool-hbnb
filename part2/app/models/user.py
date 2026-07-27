@@ -1,6 +1,7 @@
 import re
 from app.models.base import BaseModel
 
+
 class User(BaseModel):
     def __init__(self, first_name, last_name, email, is_admin=False):
         super().__init__()
@@ -8,6 +9,10 @@ class User(BaseModel):
         self.last_name = self._validate_name(last_name, "Last name")
         self.email = self._validate_email(email)
         self.is_admin = is_admin
+
+        # Relationships
+        self.places = []
+        self.reviews = []
 
     def _validate_name(self, name, field_name):
         if not name or len(name.strip()) > 50:
@@ -19,3 +24,11 @@ class User(BaseModel):
         if not email or not re.match(email_regex, email):
             raise ValueError("Invalid email format.")
         return email.strip()
+
+    def add_place(self, place):
+        if place not in self.places:
+            self.places.append(place)
+
+    def add_review(self, review):
+        if review not in self.reviews:
+            self.reviews.append(review)
