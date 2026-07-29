@@ -2,7 +2,7 @@ from app.models.user import User
 
 class HBnBFacade:
     def __init__(self):
-        self.user_repo = {}  # In-memory storage for users temporarily
+        self.user_repo = {}
 
     def create_user(self, user_data):
         user = User(
@@ -12,7 +12,6 @@ class HBnBFacade:
             is_admin=user_data.get('is_admin', False),
             password=user_data.get('password')
         )
-        # Check email uniqueness
         for u in self.user_repo.values():
             if u.email == user.email:
                 raise ValueError("Email already exists")
@@ -23,6 +22,12 @@ class HBnBFacade:
 
     def get_user(self, user_id):
         return self.user_repo.get(user_id)
+
+    def get_user_by_email(self, email):
+        for user in self.user_repo.values():
+            if user.email == email:
+                return user
+        return None
 
     def get_all_users(self):
         return list(self.user_repo.values())
