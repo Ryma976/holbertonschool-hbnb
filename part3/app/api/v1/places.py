@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource, fields
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from app.services.facade import facade
 
 api = Namespace('places', description='Place operations')
@@ -22,7 +22,7 @@ class PlaceList(Resource):
     @api.expect(place_model, validate=True)
     @jwt_required()
     def post(self):
-        """Create a new place (Authenticated User Only)"""
+        """Create a new place (Authenticated User)"""
         current_user_id = get_jwt_identity()
         place_data = api.payload
         try:
@@ -43,23 +43,29 @@ class PlaceResource(Resource):
     @api.expect(place_model, validate=False)
     @jwt_required()
     def put(self, place_id):
-        """Update place details (Owner Only)"""
+        """Update place details (Owner or Admin)"""
         current_user_id = get_jwt_identity()
+        claims = get_jwt()
+        is_admin = claims.get('is_admin', False)
+
         place_data = api.payload
-        updated_place, error = facade.update_place(place_id, place_data, current_user_id)
+        updated_place, error = facade.update_place(place_id, place_data, current_user_id, is_admin=is_admin)
         if error == "Place not found":
             return {'error': error}, 404
-        if error == "Unauthorized":
+        if error == "Unauthorized action":
             return {'error': 'Unauthorized action'}, 403
         return updated_place.to_dict(), 200
 
     @jwt_required()
     def delete(self, place_id):
-        """Delete place (Owner Only)"""
+        """Delete place (Owner or Admin)"""
         current_user_id = get_jwt_identity()
-        success, error = facade.delete_place(place_id, current_user_id)
+        claims = get_jwt()
+        is_admin = claims.get('is_admin', False)
+
+        success, error = facade.delete_place(place_id, current_user_id, is_admin=is_admin)
         if error == "Place not found":
             return {'error': error}, 404
-        if error == "Unauthorized":
+        if error == "Unauthorized action":
             return {'error': 'Unauthorized action'}, 403
         return {'message': 'Place deleted successfully'}, 200

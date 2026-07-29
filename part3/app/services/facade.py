@@ -8,8 +8,7 @@ class Place:
         self.price = price
         self.latitude = latitude
         self.longitude = longitude
-        self.owner_id = owner_id
-        self.reviews = []
+        self.owner_id = str(owner_id)
 
     def to_dict(self):
         return {
@@ -27,8 +26,8 @@ class Review:
         self.id = None
         self.text = text
         self.rating = rating
-        self.place_id = place_id
-        self.user_id = user_id
+        self.place_id = str(place_id)
+        self.user_id = str(user_id)
 
     def to_dict(self):
         return {
@@ -39,12 +38,25 @@ class Review:
             "user_id": self.user_id
         }
 
+class Amenity:
+    def __init__(self, name):
+        self.id = None
+        self.name = name
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name
+        }
+
 class HBnBFacade:
     def __init__(self):
         self.user_repo = {}
         self.place_repo = {}
         self.review_repo = {}
+        self.amenity_repo = {}
 
+    # Users
     def create_user(self, user_data):
         user = User(
             first_name=user_data.get('first_name'),
@@ -73,17 +85,36 @@ class HBnBFacade:
     def get_all_users(self):
         return list(self.user_repo.values())
 
-    def update_user(self, user_id, user_data):
+    def update_user(self, user_id, user_data, is_admin=False, current_user_id=None):
         user = self.get_user(user_id)
         if not user:
-            return None
+            return None, "User not found"
+        
+        # Non-admin users can only update their own profile
+        if not is_admin and str(current_user_id) != str(user_id):
+            return None, "Unauthorized action"
+
         if 'first_name' in user_data:
             user.first_name = user.validate_string(user_data['first_name'], "First name")
         if 'last_name' in user_data:
             user.last_name = user.validate_string(user_data['last_name'], "Last name")
-        return user
+        
+        # Only admin can update email or password
+        if is_admin:
+            if 'email' in user_data and user_data['email'] != user.email:
+                new_email = user_data['email']
+                for u in self.user_repo.values():
+                    if u.email == new_email and u.id != str(user_id):
+                        raise ValueError("Email already exists")
+                user.email = user.validate_email(new_email)
+            if 'password' in user_data:
+                user.hash_password(user_data['password'])
+            if 'is_admin' in user_data:
+                user.is_admin = bool(user_data['is_admin'])
 
-    # Places CRUD
+        return user, None
+
+    # Places
     def create_place(self, place_data, owner_id):
         user = self.get_user(owner_id)
         if not user:
@@ -106,28 +137,28 @@ class HBnBFacade:
     def get_all_places(self):
         return list(self.place_repo.values())
 
-    def update_place(self, place_id, place_data, current_user_id):
+    def update_place(self, place_id, place_data, current_user_id, is_admin=False):
         place = self.get_place(place_id)
         if not place:
             return None, "Place not found"
-        if place.owner_id != str(current_user_id):
-            return None, "Unauthorized"
+        if not is_admin and place.owner_id != str(current_user_id):
+            return None, "Unauthorized action"
         
         for key in ['title', 'description', 'price', 'latitude', 'longitude']:
             if key in place_data:
                 setattr(place, key, place_data[key])
         return place, None
 
-    def delete_place(self, place_id, current_user_id):
+    def delete_place(self, place_id, current_user_id, is_admin=False):
         place = self.get_place(place_id)
         if not place:
             return False, "Place not found"
-        if place.owner_id != str(current_user_id):
-            return False, "Unauthorized"
+        if not is_admin and place.owner_id != str(current_user_id):
+            return False, "Unauthorized action"
         del self.place_repo[str(place_id)]
         return True, None
 
-    # Reviews CRUD
+    # Reviews
     def create_review(self, review_data, user_id):
         place_id = str(review_data.get('place_id'))
         place = self.get_place(place_id)
@@ -157,16 +188,49 @@ class HBnBFacade:
     def get_all_reviews(self):
         return list(self.review_repo.values())
 
-    def update_review(self, review_id, review_data, current_user_id):
+    def update_review(self, review_id, review_data, current_user_id, is_admin=False):
         review = self.get_review(review_id)
         if not review:
             return None, "Review not found"
-        if review.user_id != str(current_user_id):
-            return None, "Unauthorized"
+        if not is_admin and review.user_id != str(current_user_id):
+            return None, "Unauthorized action"
         if 'text' in review_data:
             review.text = review_data['text']
         if 'rating' in review_data:
             review.rating = review_data['rating']
         return review, None
+
+    def delete_review(self, review_id, current_user_id, is_admin=False):
+        review = self.get_review(review_id)
+        if not review:
+            return False, "Review not found"
+        if not is_admin and review.user_id != str(current_user_id):
+            return False, "Unauthorized action"
+        del self.review_repo[str(review_id)]
+        return True, None
+
+    # Amenities
+    def create_amenity(self, amenity_data):
+        name = amenity_data.get('name')
+        if not name:
+            raise ValueError("Amenity name is required")
+        amenity = Amenity(name=name)
+        amenity.id = str(len(self.amenity_repo) + 1)
+        self.amenity_repo[amenity.id] = amenity
+        return amenity
+
+    def get_amenity(self, amenity_id):
+        return self.amenity_repo.get(str(amenity_id))
+
+    def get_all_amenities(self):
+        return list(self.amenity_repo.values())
+
+    def update_amenity(self, amenity_id, amenity_data):
+        amenity = self.get_amenity(amenity_id)
+        if not amenity:
+            return None
+        if 'name' in amenity_data:
+            amenity.name = amenity_data['name']
+        return amenity
 
 facade = HBnBFacade()
