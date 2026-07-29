@@ -5,7 +5,6 @@ from config import config
 def create_app(config_class="default"):
     app = Flask(__name__)
     
-    # تحميل الإعدادات بناءً على الفئة المطلوبة أو نص اسم الإعداد
     if isinstance(config_class, str):
         app.config.from_object(config.get(config_class, config['default']))
     else:
@@ -13,7 +12,6 @@ def create_app(config_class="default"):
 
     api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API')
 
-    # تسجيل الـ Namespaces
     from app.api.v1.users import api as users_ns
     from app.api.v1.amenities import api as amenities_ns
     from app.api.v1.places import api as places_ns
