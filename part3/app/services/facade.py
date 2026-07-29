@@ -1,5 +1,6 @@
 from app.models.user import User
-from app.persistence.repository import InMemoryRepository, SQLAlchemyRepository
+from app.persistence.repository import InMemoryRepository
+from app.persistence.user_repository import UserRepository
 
 class Place:
     def __init__(self, title, description, price, latitude, longitude, owner_id):
@@ -52,7 +53,7 @@ class Amenity:
 
 class HBnBFacade:
     def __init__(self):
-        self.user_repo = InMemoryRepository()
+        self.user_repo = UserRepository()
         self.place_repo = InMemoryRepository()
         self.review_repo = InMemoryRepository()
         self.amenity_repo = InMemoryRepository()
@@ -69,7 +70,6 @@ class HBnBFacade:
         if self.user_repo.get_by_attribute('email', user.email):
             raise ValueError("Email already exists")
 
-        user.id = str(len(self.user_repo.get_all()) + 1)
         return self.user_repo.add(user)
 
     def get_user(self, user_id):
@@ -89,10 +89,11 @@ class HBnBFacade:
         if not is_admin and str(current_user_id) != str(user_id):
             return None, "Unauthorized action"
 
+        update_fields = {}
         if 'first_name' in user_data:
-            user.first_name = user.validate_string(user_data['first_name'], "First name")
+            update_fields['first_name'] = user.validate_string(user_data['first_name'], "First name")
         if 'last_name' in user_data:
-            user.last_name = user.validate_string(user_data['last_name'], "Last name")
+            update_fields['last_name'] = user.validate_string(user_data['last_name'], "Last name")
         
         if is_admin:
             if 'email' in user_data and user_data['email'] != user.email:
@@ -100,13 +101,15 @@ class HBnBFacade:
                 existing = self.user_repo.get_by_attribute('email', new_email)
                 if existing and str(existing.id) != str(user_id):
                     raise ValueError("Email already exists")
-                user.email = user.validate_email(new_email)
+                update_fields['email'] = user.validate_email(new_email)
             if 'password' in user_data:
                 user.hash_password(user_data['password'])
+                update_fields['password'] = user.password
             if 'is_admin' in user_data:
-                user.is_admin = bool(user_data['is_admin'])
+                update_fields['is_admin'] = bool(user_data['is_admin'])
 
-        return user, None
+        updated_user = self.user_repo.update(user_id, update_fields)
+        return updated_user, None
 
     # Places
     def create_place(self, place_data, owner_id):

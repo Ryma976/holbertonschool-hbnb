@@ -21,6 +21,10 @@ def create_app(config_class="default"):
     jwt.init_app(app)
     db.init_app(app)
 
+    with app.app_context():
+        import app.models.user
+        db.create_all()
+
     api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API')
 
     from app.api.v1.users import api as users_ns
