@@ -1,62 +1,18 @@
 from app.models.user import User
-from app.persistence.repository import InMemoryRepository
+from app.models.place import Place
+from app.models.review import Review
+from app.models.amenity import Amenity
 from app.persistence.user_repository import UserRepository
-
-class Place:
-    def __init__(self, title, description, price, latitude, longitude, owner_id):
-        self.id = None
-        self.title = title
-        self.description = description
-        self.price = price
-        self.latitude = latitude
-        self.longitude = longitude
-        self.owner_id = str(owner_id)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "title": self.title,
-            "description": self.description,
-            "price": self.price,
-            "latitude": self.latitude,
-            "longitude": self.longitude,
-            "owner_id": self.owner_id
-        }
-
-class Review:
-    def __init__(self, text, rating, place_id, user_id):
-        self.id = None
-        self.text = text
-        self.rating = rating
-        self.place_id = str(place_id)
-        self.user_id = str(user_id)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "text": self.text,
-            "rating": self.rating,
-            "place_id": self.place_id,
-            "user_id": self.user_id
-        }
-
-class Amenity:
-    def __init__(self, name):
-        self.id = None
-        self.name = name
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name
-        }
+from app.persistence.place_repository import PlaceRepository
+from app.persistence.review_repository import ReviewRepository
+from app.persistence.amenity_repository import AmenityRepository
 
 class HBnBFacade:
     def __init__(self):
         self.user_repo = UserRepository()
-        self.place_repo = InMemoryRepository()
-        self.review_repo = InMemoryRepository()
-        self.amenity_repo = InMemoryRepository()
+        self.place_repo = PlaceRepository()
+        self.review_repo = ReviewRepository()
+        self.amenity_repo = AmenityRepository()
 
     # Users
     def create_user(self, user_data):
@@ -116,6 +72,7 @@ class HBnBFacade:
         user = self.get_user(owner_id)
         if not user:
             raise ValueError("Owner not found")
+
         place = Place(
             title=place_data.get('title'),
             description=place_data.get('description'),
@@ -124,7 +81,6 @@ class HBnBFacade:
             longitude=place_data.get('longitude'),
             owner_id=str(owner_id)
         )
-        place.id = str(len(self.place_repo.get_all()) + 1)
         return self.place_repo.add(place)
 
     def get_place(self, place_id):
@@ -137,7 +93,7 @@ class HBnBFacade:
         place = self.get_place(place_id)
         if not place:
             return None, "Place not found"
-        if not is_admin and place.owner_id != str(current_user_id):
+        if not is_admin and str(place.owner_id) != str(current_user_id):
             return None, "Unauthorized action"
         
         updated = self.place_repo.update(place_id, place_data)
@@ -147,7 +103,7 @@ class HBnBFacade:
         place = self.get_place(place_id)
         if not place:
             return False, "Place not found"
-        if not is_admin and place.owner_id != str(current_user_id):
+        if not is_admin and str(place.owner_id) != str(current_user_id):
             return False, "Unauthorized action"
         return self.place_repo.delete(place_id), None
 
@@ -158,7 +114,7 @@ class HBnBFacade:
         if not place:
             raise ValueError("Place not found")
         
-        if place.owner_id == str(user_id):
+        if str(place.owner_id) == str(user_id):
             raise ValueError("You cannot review your own place")
 
         for rev in self.review_repo.get_all():
@@ -171,7 +127,6 @@ class HBnBFacade:
             place_id=place_id,
             user_id=str(user_id)
         )
-        review.id = str(len(self.review_repo.get_all()) + 1)
         return self.review_repo.add(review)
 
     def get_review(self, review_id):
@@ -203,7 +158,6 @@ class HBnBFacade:
         if not name:
             raise ValueError("Amenity name is required")
         amenity = Amenity(name=name)
-        amenity.id = str(len(self.amenity_repo.get_all()) + 1)
         return self.amenity_repo.add(amenity)
 
     def get_amenity(self, amenity_id):

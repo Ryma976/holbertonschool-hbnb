@@ -23,6 +23,9 @@ def create_app(config_class="default"):
 
     with app.app_context():
         import app.models.user
+        import app.models.place
+        import app.models.review
+        import app.models.amenity
         db.create_all()
 
     api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API')
