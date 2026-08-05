@@ -133,7 +133,7 @@ erDiagram
     AMENITIES ||--|{ PLACE_AMENITY : "belongs_to"
 ```
 ---
-Relationships & Cardinality
+### Relationships & Cardinality
 User ➔ Place (1:N): A user can own multiple places (owner_id FK in places).
 
 User ➔ Review (1:N): A user can write multiple reviews (user_id FK in reviews).
