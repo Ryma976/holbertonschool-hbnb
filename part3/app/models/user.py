@@ -11,6 +11,10 @@ class User(BaseModel):
     password = db.Column(db.String(128), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
+    # Relationships
+    places = db.relationship('Place', backref='owner', lazy=True, cascade='all, delete-orphan')
+    reviews = db.relationship('Review', backref='author', lazy=True, cascade='all, delete-orphan')
+
     def __init__(self, first_name, last_name, email, password=None, is_admin=False):
         super().__init__()
         self.first_name = self.validate_string(first_name, "First name")
