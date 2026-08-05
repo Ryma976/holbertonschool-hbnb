@@ -132,3 +132,56 @@ erDiagram
     PLACES ||--|{ PLACE_AMENITY : "contains"
     AMENITIES ||--|{ PLACE_AMENITY : "belongs_to"
 ```
+---
+Relationships & Cardinality
+User ➔ Place (1:N): A user can own multiple places (owner_id FK in places).
+
+User ➔ Review (1:N): A user can write multiple reviews (user_id FK in reviews).
+
+Place ➔ Review (1:N): A place can receive multiple reviews (place_id FK in reviews).
+
+Place ↔ Amenity (N:M): Places and amenities share a many-to-many relationship using the junction table place_amenity.
+
+Database Automation Scripts
+The project includes raw SQL scripts for schema generation and initial data seed:
+
+schema.sql
+Defines the database DDL, including table creation, primary keys (UUID VARCHAR(36)), foreign keys with ON DELETE CASCADE, and unique email constraints.
+
+Bash
+sqlite3 development.db < schema.sql
+seed.sql
+Populates initial database records, including an administrator user (admin@hbnb.io) and default amenities (WiFi, Swimming Pool, Air Conditioning, Free Parking).
+
+Bash
+sqlite3 development.db < seed.sql
+
+### API Endpoints Summary
+Method,Endpoint,Access
+POST,/api/v1/auth/login,Public
+
+### Users
+Method,Endpoint,Access
+POST,/api/v1/users/,Administrator
+GET,/api/v1/users/,Public
+GET,/api/v1/users/<user_id>,Public
+PUT,/api/v1/users/<user_id>,Owner / Admin
+### Places
+Method,Endpoint,Access
+POST,/api/v1/places/,Authenticated
+GET,/api/v1/places/,Public
+GET,/api/v1/places/<place_id>,Public
+PUT,/api/v1/places/<place_id>,Owner / Admin
+## Reviews
+Method,Endpoint,Access
+POST,/api/v1/reviews/,Authenticated
+GET,/api/v1/reviews/,Public
+GET,/api/v1/reviews/<review_id>,Public
+PUT,/api/v1/reviews/<review_id>,Author / Admin
+DELETE,/api/v1/reviews/<review_id>,Author / Admin
+## Amenities
+Method,Endpoint,Access
+POST,/api/v1/amenities/,Administrator
+GET,/api/v1/amenities/,Public
+GET,/api/v1/amenities/<amenity_id>,Public
+PUT,/api/v1/amenities/<amenity_id>,Administrator
