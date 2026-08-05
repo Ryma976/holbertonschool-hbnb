@@ -263,7 +263,7 @@ sqlite3 instance/development.db < seed.sql
 
 ---
 
-###🔧 Configuration
+### 🔧 Configuration
 
 Configure environment parameters and security settings in config.py:
 
@@ -278,7 +278,7 @@ DEBUG = True
 
 ---
 
-###🚀 Usage & API Authentication
+### 🚀 Usage & API Authentication
 Run the Application
 
 ```bash
@@ -322,6 +322,7 @@ Resource updating and deletion
 
 JWT Authentication and Role-based authorization
 
+---
 
 ###🧑‍💻 Authors
 Bayadir Aldossari
@@ -330,6 +331,7 @@ Reem Alanazi
 
 Shomokh Aldosari
 
+---
 
 ###📚 References
 Flask Documentation
