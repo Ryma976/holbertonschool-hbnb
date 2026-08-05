@@ -156,32 +156,3 @@ Populates initial database records, including an administrator user (admin@hbnb.
 Bash
 sqlite3 development.db < seed.sql
 
-### API Endpoints Summary
-Method,Endpoint,Access
-POST,/api/v1/auth/login,Public
-
-### Users
-Method,Endpoint,Access
-POST,/api/v1/users/,Administrator
-GET,/api/v1/users/,Public
-GET,/api/v1/users/<user_id>,Public
-PUT,/api/v1/users/<user_id>,Owner / Admin
-### Places
-Method,Endpoint,Access
-POST,/api/v1/places/,Authenticated
-GET,/api/v1/places/,Public
-GET,/api/v1/places/<place_id>,Public
-PUT,/api/v1/places/<place_id>,Owner / Admin
-## Reviews
-Method,Endpoint,Access
-POST,/api/v1/reviews/,Authenticated
-GET,/api/v1/reviews/,Public
-GET,/api/v1/reviews/<review_id>,Public
-PUT,/api/v1/reviews/<review_id>,Author / Admin
-DELETE,/api/v1/reviews/<review_id>,Author / Admin
-## Amenities
-Method,Endpoint,Access
-POST,/api/v1/amenities/,Administrator
-GET,/api/v1/amenities/,Public
-GET,/api/v1/amenities/<amenity_id>,Public
-PUT,/api/v1/amenities/<amenity_id>,Administrator
