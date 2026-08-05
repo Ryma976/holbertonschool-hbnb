@@ -79,6 +79,7 @@ SQLite Database (development.db)
 Database Schema & ER Diagram
 The relational database architecture models connections between users, places, reviews, and amenities.
 
+```mermaid
 erDiagram
     USERS {
         VARCHAR_36 id PK
@@ -130,4 +131,4 @@ erDiagram
     PLACES ||--o{ REVIEWS : "has"
     PLACES ||--|{ PLACE_AMENITY : "contains"
     AMENITIES ||--|{ PLACE_AMENITY : "belongs_to"
-    
+```
