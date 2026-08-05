@@ -241,10 +241,10 @@ The relational database architecture models connections between users, places, r
 ### ⚙️ Getting Started & Installation
 
 1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/holbertonschool-hbnb.git
-   cd holbertonschool-hbnb/part3
-
+```bash
+ git clone https://github.com/holbertonschool-hbnb.git
+ cd holbertonschool-hbnb/part3
+ ```
 
 1. Install Dependencies:
 We recommend using a virtual environment:
@@ -257,7 +257,6 @@ pip install -r requirements.txt
 2. Set Up the Database:
 Initialize the SQLite database schema and insert seed data:
 ```bash
-Bash
 sqlite3 instance/development.db < schema.sql
 sqlite3 instance/development.db < seed.sql
 ```
@@ -269,21 +268,23 @@ sqlite3 instance/development.db < seed.sql
 
 Configure environment parameters and security settings in config.py:
 
+```bash
 # JWT Settings
 JWT_SECRET_KEY = 'your-secret-key'
 JWT_ACCESS_TOKEN_EXPIRES = 3600  # 1 hour
 
 # Application settings
 DEBUG = True
+```
 
 ---
 
 ###🚀 Usage & API Authentication
-
 Run the Application
 
+```bash
 python run.py
-
+```
 Access the Swagger UI documentation at: http://localhost:5000/api/v1/
 
 API Authentication (JWT)
@@ -292,26 +293,27 @@ Some endpoints require JWT authentication.
 
 
 1.  Retrieve a token via login:
-
+```bash
 curl -X POST http://localhost:5000/api/v1/auth/login \
     -H "Content-Type: application/json" \
     -d '{"email": "user@example.com", "password": "password123"}'
-
+```
 2.  Use the token to access protected endpoints:
-
+```bash
 curl -X GET http://localhost:5000/api/v1/places \
     -H "Authorization: Bearer your_access_token"
-    
+ ```
+
  ---
 
 
 ### 🧪 Testing
-
 The project includes unit tests to validate core functionalities:
-
+```bash
 python -m unittest discover tests
+```
 
-Tests cover:
+##Tests cover:
 
 Resource creation (success and validation errors)
 
