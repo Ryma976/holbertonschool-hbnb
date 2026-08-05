@@ -142,17 +142,3 @@ Place ➔ Review (1:N): A place can receive multiple reviews (place_id FK in rev
 
 Place ↔ Amenity (N:M): Places and amenities share a many-to-many relationship using the junction table place_amenity.
 
-Database Automation Scripts
-The project includes raw SQL scripts for schema generation and initial data seed:
-
-schema.sql
-Defines the database DDL, including table creation, primary keys (UUID VARCHAR(36)), foreign keys with ON DELETE CASCADE, and unique email constraints.
-
-Bash
-sqlite3 development.db < schema.sql
-seed.sql
-Populates initial database records, including an administrator user (admin@hbnb.io) and default amenities (WiFi, Swimming Pool, Air Conditioning, Free Parking).
-
-Bash
-sqlite3 development.db < seed.sql
-
