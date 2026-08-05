@@ -264,7 +264,6 @@ sqlite3 instance/development.db < seed.sql
 ---
 
 ###🔧 Configuration
-##
 
 Configure environment parameters and security settings in config.py:
 
@@ -278,7 +277,6 @@ DEBUG = True
 ---
 
 ###🚀 Usage & API Authentication
-## 
 
 Run the Application
 
@@ -306,7 +304,6 @@ curl -X GET http://localhost:5000/api/v1/places \
 
 
 ### 🧪 Testing
-##
 
 The project includes unit tests to validate core functionalities:
 
