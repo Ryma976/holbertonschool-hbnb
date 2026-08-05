@@ -63,7 +63,8 @@ part3/
 ├── run.py
 └── README.md
 ```
-Architecture & Data Flow
+###Architecture & Data Flow
+```text
 Part 3 implements a layered architecture to decouple API routing, business logic, and database persistence:
 API Layer (Flask-RESTx)
         │
@@ -75,6 +76,7 @@ Repository Layer (SQLAlchemy ORM Data Access)
         │
         ▼
 SQLite Database (development.db)
+```
 ---
 Database Schema & ER Diagram
 The relational database architecture models connections between users, places, reviews, and amenities.
