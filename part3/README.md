@@ -236,3 +236,98 @@ The relational database architecture models connections between users, places, r
 
 ---
 
+### ⚙️ Getting Started & Installation
+1. Clone the Repository
+
+git clone [https://github.com/holbertonschool-hbnb.git](https://github.com/holbertonschool-hbnb.git)
+cd holbertonschool-hbnb/part3
+
+
+2. Install Dependencies
+We recommend using a virtual environment:
+
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+3. Set Up the Database
+Initialize the SQLite database schema and insert seed data:
+
+sqlite3 instance/development.db < schema.sql
+sqlite3 instance/development.db < seed.sql
+(Note: For MySQL production environments, use mysql -h hostname -u user database < schema.sql)
+
+---
+
+###🔧 Configuration
+Configure environment parameters and security settings in config.py:
+
+# JWT Settings
+JWT_SECRET_KEY = 'your-secret-key'
+JWT_ACCESS_TOKEN_EXPIRES = 3600  # 1 hour
+
+# Application settings
+DEBUG = True
+
+---
+
+###🚀 Usage & API Authentication
+Run the Application
+
+python run.py
+
+Access the Swagger UI documentation at: http://localhost:5000/api/v1/
+
+API Authentication (JWT)
+Some endpoints require JWT authentication.
+
+
+
+1.  Retrieve a token via login:
+
+curl -X POST http://localhost:5000/api/v1/auth/login \
+    -H "Content-Type: application/json" \
+    -d '{"email": "user@example.com", "password": "password123"}'
+
+2.  Use the token to access protected endpoints:
+
+curl -X GET http://localhost:5000/api/v1/places \
+    -H "Authorization: Bearer your_access_token"
+    
+ ---
+
+
+### 🧪 Testing
+The project includes unit tests to validate core functionalities:
+
+python -m unittest discover tests
+
+Tests cover:
+
+Resource creation (success and validation errors)
+
+Resource retrieval (existing and non-existing entities)
+
+Resource updating and deletion
+
+JWT Authentication and Role-based authorization
+
+
+###🧑‍💻 Authors
+Bayadir Aldossari
+
+Reem Alanazi
+
+Shomokh Aldosari
+
+
+###📚 References
+Flask Documentation
+
+Flask-RESTx Docs
+
+Flask-JWT-Extended Documentation
+
+
+
+
