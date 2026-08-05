@@ -221,8 +221,9 @@ An amenity contains:
 Places and amenities have a many-to-many relationship.
 
 ---
-##
+
 ### 🗄️ Core Entities & Database Schema
+##
 
 The relational database architecture models connections between users, places, reviews, and amenities:
 
@@ -238,6 +239,8 @@ The relational database architecture models connections between users, places, r
 
 
 ### ⚙️ Getting Started & Installation
+##
+
 1. Clone the Repository
 
 git clone [https://github.com/holbertonschool-hbnb.git](https://github.com/holbertonschool-hbnb.git)
@@ -261,6 +264,8 @@ sqlite3 instance/development.db < seed.sql
 ---
 
 ###🔧 Configuration
+##
+
 Configure environment parameters and security settings in config.py:
 
 # JWT Settings
@@ -273,6 +278,8 @@ DEBUG = True
 ---
 
 ###🚀 Usage & API Authentication
+## 
+
 Run the Application
 
 python run.py
@@ -299,6 +306,8 @@ curl -X GET http://localhost:5000/api/v1/places \
 
 
 ### 🧪 Testing
+##
+
 The project includes unit tests to validate core functionalities:
 
 python -m unittest discover tests
