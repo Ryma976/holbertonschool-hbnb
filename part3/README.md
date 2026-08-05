@@ -77,7 +77,7 @@ Repository Layer (SQLAlchemy ORM Data Access)
         ▼
 SQLite Database (development.db)
 ```
----
+
 Database Schema & ER Diagram
 The relational database architecture models connections between users, places, reviews, and amenities.
 
@@ -135,12 +135,90 @@ erDiagram
     AMENITIES ||--|{ PLACE_AMENITY : "belongs_to"
 ```
 ---
-### Relationships & Cardinality
-User ➔ Place (1:N): A user can own multiple places (owner_id FK in places).
 
-User ➔ Review (1:N): A user can write multiple reviews (user_id FK in reviews).
+### API Layer
 
-Place ➔ Review (1:N): A place can receive multiple reviews (place_id FK in reviews).
+The API layer receives HTTP requests, validates input, checks
+authentication and authorization, and returns JSON responses.
 
-Place ↔ Amenity (N:M): Places and amenities share a many-to-many relationship using the junction table place_amenity.
+### Facade Layer
+
+The facade coordinates operations between the API layer and the
+repositories.
+
+### Repository Layer
+
+The repository layer handles database operations such as:
+
+- Create
+- Retrieve
+- Update
+- Delete
+- Attribute lookup
+- Relationship-specific queries
+
+### Model Layer
+
+SQLAlchemy models define the database entities and their relationships.
+
+---
+
+## Core Entities
+
+### User
+
+A user contains:
+
+- ID
+- First name
+- Last name
+- Email
+- Hashed password
+- Administrator status
+- Creation timestamp
+- Update timestamp
+
+A user may own multiple places and write multiple reviews.
+
+### Place
+
+A place contains:
+
+- ID
+- Title
+- Description
+- Price
+- Latitude
+- Longitude
+- Owner
+- Amenities
+- Reviews
+- Creation timestamp
+- Update timestamp
+
+### Review
+
+A review contains:
+
+- ID
+- Text
+- Author
+- Place
+- Creation timestamp
+- Update timestamp
+
+A user may submit only one review for the same place.
+
+### Amenity
+
+An amenity contains:
+
+- ID
+- Name
+- Creation timestamp
+- Update timestamp
+
+Places and amenities have a many-to-many relationship.
+
+---
 
