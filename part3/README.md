@@ -221,7 +221,7 @@ An amenity contains:
 Places and amenities have a many-to-many relationship.
 
 ---
-
+##
 ### 🗄️ Core Entities & Database Schema
 
 The relational database architecture models connections between users, places, reviews, and amenities:
