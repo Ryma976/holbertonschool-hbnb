@@ -239,26 +239,28 @@ The relational database architecture models connections between users, places, r
 
 
 ### ⚙️ Getting Started & Installation
-##
 
-1. Clone the Repository
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/holbertonschool-hbnb.git
+   cd holbertonschool-hbnb/part3
 
-git clone [https://github.com/holbertonschool-hbnb.git](https://github.com/holbertonschool-hbnb.git)
-cd holbertonschool-hbnb/part3
 
-
-2. Install Dependencies
+1. Install Dependencies:
 We recommend using a virtual environment:
-
+```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
 
-3. Set Up the Database
+2. Set Up the Database:
 Initialize the SQLite database schema and insert seed data:
-
+```bash
+Bash
 sqlite3 instance/development.db < schema.sql
 sqlite3 instance/development.db < seed.sql
+```
 (Note: For MySQL production environments, use mysql -h hostname -u user database < schema.sql)
 
 ---
