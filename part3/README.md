@@ -236,6 +236,7 @@ The relational database architecture models connections between users, places, r
 
 ---
 
+
 ### ⚙️ Getting Started & Installation
 1. Clone the Repository
 
