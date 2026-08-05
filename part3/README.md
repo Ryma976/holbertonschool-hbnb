@@ -222,3 +222,17 @@ Places and amenities have a many-to-many relationship.
 
 ---
 
+### 🗄️ Core Entities & Database Schema
+
+The relational database architecture models connections between users, places, reviews, and amenities:
+
+-User: ID, First name, Last name, Email, Hashed password, Administrator status (is_admin), Creation & Update timestamps. (A user may own multiple places and write multiple reviews).
+
+-Place: ID, Title, Description, Price, Latitude, Longitude, Owner, Amenities, Reviews, Creation & Update timestamps.
+
+-Review: ID, Text, Author, Place, Creation & Update timestamps. (A user may submit only one review for the same place).
+
+-Amenity: ID, Name, Creation & Update timestamps. (Places and amenities have a many-to-many relationship).
+
+---
+
