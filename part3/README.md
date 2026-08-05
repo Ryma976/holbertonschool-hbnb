@@ -312,7 +312,7 @@ The project includes unit tests to validate core functionalities:
 python -m unittest discover tests
 ```
 
-##Tests cover:
+## Tests cover:
 
 Resource creation (success and validation errors)
 
@@ -324,7 +324,7 @@ JWT Authentication and Role-based authorization
 
 ---
 
-###🧑‍💻 Authors
+### 🧑‍💻 Authors
 Bayadir Aldossari
 
 Reem Alanazi
@@ -333,7 +333,7 @@ Shomokh Aldosari
 
 ---
 
-###📚 References
+### 📚 References
 Flask Documentation
 
 Flask-RESTx Docs
