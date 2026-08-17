@@ -21,5 +21,42 @@ part4/Front/
 ├── scripts.js         # JavaScript ES6 API integration & session logic
 ├── .gitignore          # Git exclusion rules
 └── README.md           # Documentation file
+```
+## Page Routes & Functionalities
 
+- **`index.html`**: Displays a catalog of available places using card components (`.place-card`) and dynamic country filtering.
+- **`login.html`**: Form for authenticating users via API and storing session JWT tokens in cookies.
+- **`register.html`**: Form allowing new users to create accounts.
+- **`place.html`**: Shows extended details for a specific place including host, price, amenities, and user reviews (`.review-card`).
+- **`add_review.html`**: Accessible to logged-in users for submitting new place reviews.
 
+---
+
+## Design Specifications
+
+All place and review card components adhere strictly to required UI parameters:
+
+- **Margin**: `20px`
+- **Padding**: `10px`
+- **Border**: `1px solid #ddd`
+- **Border Radius**: `10px`
+
+### Mandatory Classes
+
+`.logo`, `.login-button`, `.place-card`, `.details-button`, `.place-details`, `.place-info`, `.review-card`, `.form`, `.add-review`
+
+## How to Run Locally
+
+Start a simple web server within the `Front` directory:
+
+```bash
+cd part4/Front
+python3 -m http.server 8000
+```
+---
+### 🧑‍💻 Authors
+Bayadir Aldossari
+
+Reem Alanazi
+
+Shomokh Aldosari
