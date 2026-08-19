@@ -3,36 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/icon.png">
-    <link rel="stylesheet" href="styles.css">
     <title>HBnB - Place Details</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <a href="index.html">
-            <img src="images/logo.png" alt="HBnB Logo" class="logo">
-        </a>
+        <a href="index.html"><img src="images/logo.png" alt="HBnB Logo" class="logo"></a>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="login.html" id="login-link" class="login-button">Login</a>
+            <a href="login.html" class="login-button">Login</a>
         </nav>
     </header>
 
     <main>
-        <section id="place-details" class="place-details">
-            <!-- Details will be loaded dynamically via JS -->
-        </section>
+        <article class="place-details">
+            <h2>Cozy Beach Apartment</h2>
+            <section class="place-info">
+                <p><strong>Host:</strong> John Doe</p>
+                <p><strong>Price:</strong> $120 per night</p>
+                <p><strong>Description:</strong> A beautiful ocean-view apartment with all amenities.</p>
+                <p><strong>Amenities:</strong> Wi-Fi, Pool, Air Conditioning</p>
+            </section>
+        </article>
 
-        <section id="add-review" class="add-review" style="display: none;">
-            <h3>Add a Review</h3>
-            <a href="add_review.html" id="review-button" class="details-button">Write a Review</a>
+        <section>
+            <h3 style="margin-top: 20px;">Reviews</h3>
+            <article class="review-card">
+                <p><strong>Jane Smith:</strong> "Amazing place! Loved the view."</p>
+                <p>Rating: ★★★★★</p>
+            </article>
+
+            <a href="add_review.html" class="details-button" style="margin-top: 15px;">Add Review</a>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2026 HBnB. All rights reserved.</p>
     </footer>
-
-    <script src="scripts.js?v=4"></script>
 </body>
 </html>

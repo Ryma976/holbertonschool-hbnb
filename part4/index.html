@@ -3,42 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/icon.png">
+    <title>HBnB - Accommodation Listing</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
-    <title>HBnB - Places</title>
 </head>
 <body>
     <header>
-        <a href="index.html">
-            <img src="images/logo.png" alt="HBnB Logo" class="logo">
-        </a>
+        <img src="images/logo.png" alt="HBnB Logo" class="logo">
         <nav>
-            <a href="index.html">Home</a>
-            <a href="login.html" id="login-link" class="login-button">Login</a>
+            <a href="login.html" class="login-button">Login</a>
         </nav>
     </header>
 
     <main>
-        <section id="filter-section">
-            <label for="price-filter">Filter by Max Price:</label>
-            <select id="price-filter">
-                <option value="All">All</option>
-                <option value="10">$10</option>
-                <option value="50">$50</option>
-                <option value="100">$100</option>
-            </select>
-        </section>
-
-        <h1>Available Places</h1>
-        <section id="places-list">
-            <!-- Dynamic place cards will be populated here -->
+        <h2>Available Places</h2>
+        <section class="places-list">
+            <article class="place-card">
+                <h3>Cozy Beach Apartment</h3>
+                <p class="price">$120 per night</p>
+                <a href="place.html" class="details-button">View Details</a>
+            </article>
+            <article class="place-card">
+                <h3>Modern Downtown Loft</h3>
+                <p class="price">$200 per night</p>
+                <a href="place.html" class="details-button">View Details</a>
+            </article>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2026 HBnB. All rights reserved.</p>
     </footer>
-
-    <script src="scripts.js?v=4"></script>
 </body>
 </html>
