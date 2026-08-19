@@ -4,36 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HBnB - Login</title>
-    <link rel="icon" href="images/icon.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <a href="index.html"><img src="images/logo.png" alt="HBnB Logo" class="logo"></a>
-        <nav>
-            <a href="index.html" class="login-button">Home</a>
-        </nav>
+        <a href="index.html" class="logo-link">
+            <div class="logo-wrapper">
+                <img src="images/logo.png" alt="Holberton Logo" class="logo-img">
+            </div>
+            <div class="brand-divider"></div>
+            <span class="brand-text">hbnb</span>
+        </a>
+        <a href="index.html" class="login-button">Home</a>
     </header>
 
     <main>
-        <section class="form-container">
+        <div class="form-container">
             <h2>Login</h2>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
+            <form action="#" method="POST" class="login-form">
+                <div class="input-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="enter your email..." required>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="enter your password..." required>
                 </div>
                 <button type="submit" class="submit-btn">Login</button>
             </form>
-        </section>
+        </div>
     </main>
 
     <footer>
         <p>&copy; 2026 HBnB. All rights reserved.</p>
     </footer>
+
 </body>
 </html>
