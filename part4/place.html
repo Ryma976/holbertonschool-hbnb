@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <title>HBnB - Places</title>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="images/logo.png" alt="HBnB Logo" class="logo">
+        </a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html" class="login-button">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="filter-section">
+            <label for="country-filter">Filter by Country:</label>
+            <select id="country-filter">
+                <option value="all">All Countries</option>
+            </select>
+        </section>
+
+        <section id="places-list">
+            <!-- Place cards will be dynamically loaded here via JavaScript -->
+            <article class="place-card">
+                <h2>Sample Place</h2>
+                <p>Price per night: $100</p>
+                <a href="place.html?id=1" class="details-button">View Details</a>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 HBnB. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
