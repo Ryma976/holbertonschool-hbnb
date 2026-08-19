@@ -14,25 +14,23 @@
         </a>
         <nav>
             <a href="index.html">Home</a>
-            <a href="login.html" class="login-button">Login</a>
+            <a href="login.html" id="login-link" class="login-button">Login</a>
         </nav>
     </header>
 
     <main>
-        <section class="filter-section">
-            <label for="country-filter">Filter by Country:</label>
-            <select id="country-filter">
-                <option value="all">All Countries</option>
+        <section class="filters">
+            <label for="price-filter">Max Price:</label>
+            <select id="price-filter">
+                <option value="All">All</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
             </select>
         </section>
 
-        <section id="places-list">
-            <!-- Place cards will be dynamically loaded here via JavaScript -->
-            <article class="place-card">
-                <h2>Sample Place</h2>
-                <p>Price per night: $100</p>
-                <a href="place.html?id=1" class="details-button">View Details</a>
-            </article>
+        <section id="places-list" class="places-list">
+            <!-- Dynamic place cards will be injected here -->
         </section>
     </main>
 
