@@ -14,23 +14,23 @@
         </a>
         <nav>
             <a href="index.html">Home</a>
-            <a href="login.html" class="login-button">Login</a>
+            <a href="login.html" id="login-link" class="login-button">Login</a>
         </nav>
     </header>
 
     <main>
-        <section class="add-review">
-            <h1>Add Review</h1>
-            <form id="review-form" class="form">
+        <section class="form">
+            <h1>Add a Review</h1>
+            <form id="review-form">
                 <div class="form-group">
-                    <label for="review-text">Your Review</label>
-                    <textarea id="review-text" name="review_text" required placeholder="Write your experience here..."></textarea>
+                    <label for="review-text">Review Text:</label>
+                    <textarea id="review-text" name="review-text" required placeholder="Write your review here..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="rating">Rating</label>
+                    <label for="rating">Rating:</label>
                     <select id="rating" name="rating" required>
                         <option value="5">5 - Excellent</option>
-                        <option value="4">4 - Good</option>
+                        <option value="4">4 - Very Good</option>
                         <option value="3">3 - Average</option>
                         <option value="2">2 - Poor</option>
                         <option value="1">1 - Terrible</option>
