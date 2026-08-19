@@ -4,76 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HBnB - Place Details</title>
-    <link rel="icon" href="images/icon.png" type="image/png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- Header Section -->
     <header>
-        <a href="index.html"><img src="images/logo.png" alt="HBnB Logo" class="logo"></a>
-        <nav>
-            <a href="login.html" class="login-button"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-        </nav>
+        <a href="index.html" class="logo-link">
+            <div class="logo-wrapper">
+                <img src="images/logo.png" alt="Holberton Logo" class="logo-img">
+            </div>
+            <div class="brand-divider"></div>
+            <span class="brand-text">hbnb</span>
+        </a>
+        <a href="login.html" class="login-button">Login</a>
     </header>
 
+    <!-- Main Content Section -->
     <main>
-        <h2>Beautiful Beach House</h2>
+        <!-- Place Title -->
+        <h2 class="place-title">Beautiful Beach House</h2>
 
+        <!-- Place Details Container -->
         <section class="place-details">
-            <p><i class="fa-solid fa-user-tie" style="color: #6B21A8;"></i> <strong>Host:</strong> John Doe</p>
-            <p><i class="fa-solid fa-money-bill-wave" style="color: #6B21A8;"></i> <strong>Price per night:</strong> $150</p>
-            <p><i class="fa-solid fa-circle-info" style="color: #6B21A8;"></i> <strong>Description:</strong> A beautiful beach house with amazing views...</p>
-            <br>
-            <p><i class="fa-solid fa-layer-group" style="color: #6B21A8;"></i> <strong>Amenities:</strong></p>
-            <div class="amenities-tags">
-                <span class="amenity-tag"><i class="fa-solid fa-wifi"></i> WiFi</span>
-                <span class="amenity-tag"><i class="fa-solid fa-water-ladder"></i> Pool</span>
-                <span class="amenity-tag"><i class="fa-solid fa-snowflake"></i> Air Conditioning</span>
+            <div class="detail-item">
+                <span class="detail-icon">👤</span>
+                <p><strong>Host:</strong> John Doe</p>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon">💵</span>
+                <p><strong>Price per night:</strong> $150</p>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon">ℹ️</span>
+                <p><strong>Description:</strong> A beautiful beach house with amazing ocean views, spacious rooms, and modern amenities for a perfect family stay.</p>
+            </div>
+            <div class="detail-item amenities-item">
+                <span class="detail-icon">⚙️</span>
+                <p><strong>Amenities:</strong></p>
+                <div class="amenities-tags">
+                    <span class="tag">📶 WiFi</span>
+                    <span class="tag">🏊 Pool</span>
+                    <span class="tag">❄️ Air Conditioning</span>
+                </div>
             </div>
         </section>
 
+        <!-- Reviews Section -->
         <section class="reviews-section">
-            <h3><i class="fa-solid fa-comments" style="color: #4A154B;"></i> Reviews</h3>
-            
-            <div class="review-card">
-                <h4><i class="fa-solid fa-user-astronaut" style="color: #6B21A8;"></i> Jane Smith:</h4>
-                <p>"Great place to stay!"</p>
-                <p style="color: #F59E0B; font-weight: bold;">Rating: ★★★★☆</p>
-            </div>
+            <h3 class="section-subtitle">💬 Reviews</h3>
 
-            <div class="review-card">
-                <h4><i class="fa-solid fa-user-ninja" style="color: #6B21A8;"></i> Robert Brown:</h4>
-                <p>"Amazing location and very comfortable."</p>
-                <p style="color: #F59E0B; font-weight: bold;">Rating: ★★★★★</p>
-            </div>
+            <article class="review-card">
+                <div class="review-header">
+                    <span class="user-icon">👤</span>
+                    <strong>Jane Smith</strong>
+                </div>
+                <p class="review-text">"Great place to stay! Very clean, comfortable, and close to the beach."</p>
+                <div class="rating">Rating: ★★★★★</div>
+            </article>
+
+            <article class="review-card">
+                <div class="review-header">
+                    <span class="user-icon">👤</span>
+                    <strong>Robert Brown</strong>
+                </div>
+                <p class="review-text">"Amazing location and very comfortable environment. Highly recommended!"</p>
+                <div class="rating">Rating: ★★★★★</div>
+            </article>
         </section>
 
-        <section class="add-review form-container">
-            <h3><i class="fa-solid fa-pen-to-square" style="color: #4A154B;"></i> Add a Review</h3>
-            <form id="review-form">
-                <div class="form-group">
-                    <label for="review-text"><i class="fa-solid fa-comment-dots"></i> Your Review:</label>
-                    <textarea id="review-text" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="rating"><i class="fa-solid fa-star"></i> Rating:</label>
-                    <select id="rating" required>
-                        <option value="1">1 Star</option>
-                        <option value="2">2 Stars</option>
-                        <option value="3">3 Stars</option>
-                        <option value="4">4 Stars</option>
-                        <option value="5">5 Stars</option>
-                    </select>
-                </div>
-                <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Submit Review</button>
-            </form>
+        <!-- Add Review Form Container -->
+        <section class="add-review-container">
+            <div class="form-container">
+                <h3>📝 Add a Review</h3>
+                <form action="#" method="POST" class="review-form">
+                    <div class="input-group">
+                        <label for="review">Your Review:</label>
+                        <textarea id="review" name="review" rows="4" placeholder="Write your feedback here..." required></textarea>
+                    </div>
+
+                    <div class="input-group inline-group">
+                        <label for="rating">Rating:</label>
+                        <select id="rating" name="rating">
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="2">2 Stars</option>
+                            <option value="1">1 Star</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">🚀 Submit Review</button>
+                </form>
+            </div>
         </section>
     </main>
 
+    <!-- Footer Section -->
     <footer>
-        <p>&copy; 2026 HBnB Evolution. All rights reserved.</p>
+        <p>&copy; 2026 HBnB. All rights reserved.</p>
     </footer>
 
-    <script src="scripts.js"></script>
 </body>
 </html>
