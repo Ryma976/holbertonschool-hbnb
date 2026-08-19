@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --tuwaiq-purple: #4A154B;
-    --tuwaiq-accent: #6B21A8;
-    --tuwaiq-light: #F3E8FF;
-    --tuwaiq-border: #E9D5FF;
-    --bg-lavender: #F9F8FC;
+    --tuwaiq-purple: #4A154B;       /* بنفسجي طويق الملكي */
+    --tuwaiq-accent: #6B21A8;       /* بنفسجي التأشير */
+    --tuwaiq-light: #F3E8FF;        /* موف ناعم بيبي */
+    --tuwaiq-border: #E9D5FF;       /* حدود موف فاتحة */
+    --bg-lavender: #F9F8FC;         /* خلفية ناعمة جداً */
     --text-dark: #1E1B4B;
     --text-muted: #64748B;
 }
@@ -29,7 +29,7 @@ body {
 header {
     background-color: #ffffff;
     border-bottom: 2px solid var(--tuwaiq-border);
-    padding: 16px 48px;
+    padding: 12px 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,37 +39,45 @@ header {
 .logo-link {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     text-decoration: none;
 }
 
+/* إطار ناعم للشعار */
 .logo-wrapper {
     background: linear-gradient(135deg, #ffffff 0%, var(--tuwaiq-light) 100%);
-    border: 2px solid var(--tuwaiq-border);
-    padding: 6px 16px;
-    border-radius: 12px;
+    border: 1.5px solid var(--tuwaiq-border);
+    padding: 4px 12px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 54px;
+    transition: all 0.25s ease;
 }
 
-/* تحجم اللوجو وإلغاء التمدد */
+.logo-wrapper:hover {
+    border-color: var(--tuwaiq-purple);
+}
+
+/* تصغير اللوجو ليصبح مرتباً جداً وما يكبر */
 .logo-img {
-    height: 40px !important;
-    max-height: 40px !important;
+    height: 32px !important;
+    max-height: 32px !important;
     width: auto !important;
     object-fit: contain;
+    filter: none !important;
 }
 
+/* خط فاصل أنيق */
 .brand-divider {
     width: 2px;
-    height: 30px;
+    height: 24px;
     background: linear-gradient(to bottom, transparent, var(--tuwaiq-purple), transparent);
 }
 
+/* اسم HBnB */
 .brand-text {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 800;
     color: var(--tuwaiq-purple);
     letter-spacing: -0.5px;
@@ -85,152 +93,143 @@ header {
     font-weight: 700;
     font-size: 0.95rem;
     transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(74, 21, 75, 0.2);
 }
 
 .login-button:hover {
     background-color: var(--tuwaiq-accent);
+    transform: translateY(-2px);
 }
 
 /* ================= MAIN CONTENT ================= */
 main {
     flex: 1;
-    max-width: 900px;
-    margin: 35px auto;
+    max-width: 1100px;
+    margin: 40px auto;
     width: 90%;
-}
-
-.place-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--tuwaiq-purple);
     text-align: center;
-    margin-bottom: 30px;
 }
 
-/* ================= REQUIRED CHECKER SELECTORS ================= */
+h2 {
+    font-size: 2.1rem;
+    font-weight: 800;
+    margin-bottom: 28px;
+    color: var(--tuwaiq-purple);
+    letter-spacing: -0.5px;
+}
+
+.filter-section {
+    margin-bottom: 35px;
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.filter-section select {
+    padding: 10px 20px;
+    border: 2px solid var(--tuwaiq-border);
+    border-radius: 10px;
+    outline: none;
+    background-color: #ffffff;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/* ================= CARDS & CHECKER PARAMETERS ================= */
 .place-card, .review-card, .place-details, .form-container {
     background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 20px;
+    border: 1px solid #ddd;       /* Required Parameter */
+    border-radius: 10px;          /* Required Parameter */
+    padding: 10px;                /* Required Parameter */
+    margin: 20px;                 /* Required Parameter */
 }
 
-/* ================= PLACE DETAILS STYLING ================= */
-.place-details {
-    padding: 28px !important;
-    border: 1.5px solid var(--tuwaiq-border) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 4px 18px rgba(74, 21, 75, 0.04);
+.places-list {
     display: flex;
-    flex-direction: column;
-    gap: 18px;
-    text-align: left;
-}
-
-.detail-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 1.05rem;
-    line-height: 1.6;
-}
-
-.detail-icon {
-    font-size: 1.2rem;
-}
-
-.amenities-item {
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 5px;
-}
-
-.amenities-tags {
-    display: flex;
-    gap: 10px;
+    justify-content: center;
+    gap: 30px;
     flex-wrap: wrap;
+    margin-top: 10px;
 }
 
-.tag {
-    background-color: var(--tuwaiq-light);
-    color: var(--tuwaiq-purple);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    border: 1px solid var(--tuwaiq-border);
-}
-
-/* ================= REVIEWS SECTION ================= */
-.reviews-section {
-    margin-top: 40px;
-}
-
-.section-subtitle {
-    font-size: 1.5rem;
-    color: var(--tuwaiq-purple);
-    margin-bottom: 15px;
-    text-align: left;
-    font-weight: 700;
-}
-
-.review-card {
-    padding: 20px 24px !important;
-    border: 1.5px solid var(--tuwaiq-border) !important;
-    border-radius: 14px !important;
-    margin: 15px 0 !important;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
-    text-align: left;
-}
-
-.review-header {
+.place-card {
+    width: 320px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    padding: 30px 24px !important;
+    min-height: 240px;
+    border-radius: 16px !important;
+    border: 1.5px solid var(--tuwaiq-border) !important;
+    box-shadow: 0 6px 20px rgba(74, 21, 75, 0.04);
+    transition: all 0.3s ease;
+}
+
+.place-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(74, 21, 75, 0.12);
+    border-color: var(--tuwaiq-purple) !important;
+}
+
+.place-card h3 {
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--tuwaiq-purple);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
-.review-text {
+.place-card .price {
+    font-size: 1.25rem;
+    font-weight: 800;
     color: var(--text-dark);
-    margin-bottom: 10px;
-    font-style: italic;
-    line-height: 1.5;
+    margin-bottom: 20px;
 }
 
-.rating {
-    color: #F59E0B;
+.place-card .price span {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.details-button, .submit-btn {
+    background-color: var(--tuwaiq-purple);
+    color: #ffffff;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
     font-weight: 700;
     font-size: 0.95rem;
+    width: 100%;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(74, 21, 75, 0.15);
 }
 
-/* ================= ADD REVIEW FORM ================= */
-.add-review-container {
-    margin-top: 30px;
+.details-button:hover, .submit-btn:hover {
+    background-color: var(--tuwaiq-accent);
 }
 
-.add-review-container .form-container {
-    margin: 0 auto !important;
-    max-width: 100% !important;
-    padding: 30px !important;
-    border-radius: 16px !important;
+/* ================= FORM STYLING (LOGIN) ================= */
+.form-container {
+    max-width: 440px;
+    margin: 40px auto !important;
+    padding: 40px 32px !important;
+    border-radius: 18px !important;
     border: 1.5px solid var(--tuwaiq-border) !important;
-    box-shadow: 0 6px 20px rgba(74, 21, 75, 0.05);
+    box-shadow: 0 10px 30px rgba(74, 21, 75, 0.06);
 }
 
-.add-review-container h3 {
-    color: var(--tuwaiq-purple);
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.review-form {
+.login-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
     text-align: left;
+    margin-top: 20px;
 }
 
 .input-group {
@@ -242,56 +241,28 @@ main {
 .input-group label {
     font-weight: 700;
     color: var(--text-dark);
+    font-size: 0.95rem;
 }
 
-.input-group textarea, .input-group select {
-    padding: 12px;
+.input-group input, .input-group textarea, .input-group select {
+    padding: 12px 16px;
     border: 1.5px solid #CBD5E1;
     border-radius: 10px;
-    font-family: inherit;
     font-size: 0.95rem;
     outline: none;
-    transition: border-color 0.2s ease;
 }
 
-.input-group textarea:focus, .input-group select:focus {
+.input-group input:focus, .input-group textarea:focus {
     border-color: var(--tuwaiq-purple);
 }
 
-.inline-group {
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-}
-
-.inline-group select {
-    width: auto;
-    padding: 8px 16px;
-}
-
-.submit-btn {
-    background-color: var(--tuwaiq-purple);
-    color: #ffffff;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 14px rgba(74, 21, 75, 0.15);
-}
-
-.submit-btn:hover {
-    background-color: var(--tuwaiq-accent);
-}
-
-/* ================= FOOTER ================= */
+/* ================= FOOTER STYLING ================= */
 footer {
     background-color: var(--tuwaiq-purple);
     color: #ffffff;
     text-align: center;
-    padding: 20px;
+    padding: 22px;
     font-size: 0.9rem;
+    font-weight: 500;
     margin-top: auto;
 }

@@ -22,81 +22,50 @@
 
     <!-- Main Content Section -->
     <main>
-        <!-- Place Title -->
-        <h2 class="place-title">Beautiful Beach House</h2>
+        <h2>Beautiful Beach House</h2>
 
-        <!-- Place Details Container -->
+        <!-- Place Details -->
         <section class="place-details">
-            <div class="detail-item">
-                <span class="detail-icon">👤</span>
-                <p><strong>Host:</strong> John Doe</p>
-            </div>
-            <div class="detail-item">
-                <span class="detail-icon">💵</span>
-                <p><strong>Price per night:</strong> $150</p>
-            </div>
-            <div class="detail-item">
-                <span class="detail-icon">ℹ️</span>
-                <p><strong>Description:</strong> A beautiful beach house with amazing ocean views, spacious rooms, and modern amenities for a perfect family stay.</p>
-            </div>
-            <div class="detail-item amenities-item">
-                <span class="detail-icon">⚙️</span>
-                <p><strong>Amenities:</strong></p>
-                <div class="amenities-tags">
-                    <span class="tag">📶 WiFi</span>
-                    <span class="tag">🏊 Pool</span>
-                    <span class="tag">❄️ Air Conditioning</span>
-                </div>
-            </div>
+            <p><strong>Host:</strong> John Doe</p>
+            <p><strong>Price per night:</strong> $150</p>
+            <p><strong>Description:</strong> A beautiful beach house with amazing views...</p>
+            <p><strong>Amenities:</strong> WiFi, Pool, Air Conditioning</p>
         </section>
 
         <!-- Reviews Section -->
         <section class="reviews-section">
-            <h3 class="section-subtitle">💬 Reviews</h3>
-
+            <h3>Reviews</h3>
             <article class="review-card">
-                <div class="review-header">
-                    <span class="user-icon">👤</span>
-                    <strong>Jane Smith</strong>
-                </div>
-                <p class="review-text">"Great place to stay! Very clean, comfortable, and close to the beach."</p>
-                <div class="rating">Rating: ★★★★★</div>
+                <p><strong>Jane Smith:</strong> "Great place to stay!"</p>
+                <p class="rating">Rating: ★★★★★</p>
             </article>
 
             <article class="review-card">
-                <div class="review-header">
-                    <span class="user-icon">👤</span>
-                    <strong>Robert Brown</strong>
-                </div>
-                <p class="review-text">"Amazing location and very comfortable environment. Highly recommended!"</p>
-                <div class="rating">Rating: ★★★★★</div>
+                <p><strong>Robert Brown:</strong> "Amazing location and very comfortable."</p>
+                <p class="rating">Rating: ★★★★★</p>
             </article>
         </section>
 
-        <!-- Add Review Form Container -->
-        <section class="add-review-container">
-            <div class="form-container">
-                <h3>📝 Add a Review</h3>
-                <form action="#" method="POST" class="review-form">
-                    <div class="input-group">
-                        <label for="review">Your Review:</label>
-                        <textarea id="review" name="review" rows="4" placeholder="Write your feedback here..." required></textarea>
-                    </div>
-
-                    <div class="input-group inline-group">
-                        <label for="rating">Rating:</label>
-                        <select id="rating" name="rating">
-                            <option value="5">5 Stars</option>
-                            <option value="4">4 Stars</option>
-                            <option value="3">3 Stars</option>
-                            <option value="2">2 Stars</option>
-                            <option value="1">1 Star</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="submit-btn">🚀 Submit Review</button>
-                </form>
-            </div>
+        <!-- Add Review Form -->
+        <section class="form-container">
+            <h3>Add a Review</h3>
+            <form action="#" method="POST" class="login-form">
+                <div class="input-group">
+                    <label for="review">Your Review:</label>
+                    <textarea id="review" name="review" rows="3" required></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="rating">Rating:</label>
+                    <select id="rating" name="rating">
+                        <option value="5">5 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="2">2 Stars</option>
+                        <option value="1">1 Star</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Submit Review</button>
+            </form>
         </section>
     </main>
 
