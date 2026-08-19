@@ -34,7 +34,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // إعداد صفحة التفاصيل (Task 3)
+    if (document.getElementById('place-details')) {
+        const placeId = getPlaceIdFromURL();
+        if (placeId) {
+            const token = getCookie('token');
+            fetchPlaceDetails(token, placeId);
+        }
+    }
 });
+
+// استخراج placeId من URL
+function getPlaceIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+}
 
 // دالة جلب قيمة الكوكي باسمها
 function getCookie(name) {
@@ -48,13 +63,14 @@ function getCookie(name) {
 function checkAuthentication() {
     const token = getCookie('token');
     const loginLink = document.getElementById('login-link');
+    const addReviewSection = document.getElementById('add-review');
 
     if (loginLink) {
-        if (!token) {
-            loginLink.style.display = 'inline-block';
-        } else {
-            loginLink.style.display = 'none';
-        }
+        loginLink.style.display = token ? 'none' : 'inline-block';
+    }
+
+    if (addReviewSection) {
+        addReviewSection.style.display = token ? 'block' : 'none';
     }
 
     if (document.getElementById('places-list')) {
@@ -85,35 +101,26 @@ async function loginUser(email, password) {
     }
 }
 
-// دالة جلب الأماكن من API
+// دالة جلب قائمة الأماكن
 async function fetchPlaces(token) {
     try {
         const headers = { 'Content-Type': 'application/json' };
-        if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
+        if (token) headers['Authorization'] = `Bearer ${token}`;
 
-        const response = await fetch('/api/v1/places', {
-            method: 'GET',
-            headers: headers
-        });
-
+        const response = await fetch('/api/v1/places', { headers });
         if (response.ok) {
             const places = await response.json();
             displayPlaces(places);
-        } else {
-            console.error('Failed to fetch places:', response.statusText);
         }
     } catch (error) {
         console.error('Error fetching places:', error);
     }
 }
 
-// دالة عرض الأماكن ديناميكياً
+// دالة عرض الأماكن
 function displayPlaces(places) {
     const placesList = document.getElementById('places-list');
     if (!placesList) return;
-
     placesList.innerHTML = '';
 
     places.forEach(place => {
@@ -128,7 +135,70 @@ function displayPlaces(places) {
             <p class="description">${place.description || ''}</p>
             <a href="place.html?id=${place.id}" class="details-button">View Details</a>
         `;
-
         placesList.appendChild(card);
     });
+}
+
+// دالة جلب تفاصيل مكان معين (Task 3)
+async function fetchPlaceDetails(token, placeId) {
+    try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const response = await fetch(`/api/v1/places/${placeId}`, { headers });
+        if (response.ok) {
+            const place = await response.json();
+            displayPlaceDetails(place);
+        } else {
+            console.error('Failed to fetch place details:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error fetching place details:', error);
+    }
+}
+
+// دالة عرض تفاصيل المكان والميزات والتقييمات
+function displayPlaceDetails(place) {
+    const placeDetails = document.getElementById('place-details');
+    if (!placeDetails) return;
+
+    placeDetails.innerHTML = '';
+
+    const price = place.price_by_night || place.price || 0;
+    const amenities = place.amenities || [];
+    const reviews = place.reviews || [];
+
+    const detailsHTML = `
+        <h1>${place.title || place.name}</h1>
+        <div class="place-info">
+            <p><strong>Host:</strong> ${place.owner ? `${place.owner.first_name} ${place.owner.last_name}` : 'N/A'}</p>
+            <p><strong>Price:</strong> $${price} per night</p>
+            <p><strong>Description:</strong> ${place.description || 'No description provided.'}</p>
+        </div>
+
+        <div class="amenities">
+            <h2>Amenities</h2>
+            <ul>
+                ${amenities.length > 0 
+                    ? amenities.map(a => `<li>${a.name || a}</li>`).join('') 
+                    : '<li>No amenities listed</li>'}
+            </ul>
+        </div>
+
+        <div class="reviews">
+            <h2>Reviews</h2>
+            <div id="reviews-list">
+                ${reviews.length > 0 
+                    ? reviews.map(r => `
+                        <div class="review-card">
+                            <p><strong>${r.user_name || r.user ? `${r.user.first_name}` : 'Anonymous'}:</strong> ${r.text || r.comment}</p>
+                            <p>Rating: ${r.rating || 5}/5</p>
+                        </div>
+                    `).join('') 
+                    : '<p>No reviews yet.</p>'}
+            </div>
+        </div>
+    `;
+
+    placeDetails.innerHTML = detailsHTML;
 }
