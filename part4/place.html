@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HBnB - Place Details</title>
     <link rel="icon" href="images/icon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,30 +16,47 @@
         </nav>
     </header>
 
-    <main>
-        <article class="place-details">
+    <main class="centered-content">
+        <section class="place-details">
             <h2>Cozy Beach Apartment</h2>
-            <section class="place-info">
-                <p><strong>Host:</strong> John Doe</p>
-                <p><strong>Price:</strong> $120 per night</p>
-                <p><strong>Description:</strong> A beautiful ocean-view apartment with all amenities.</p>
-                <p><strong>Amenities:</strong> Wi-Fi, Pool, Air Conditioning</p>
-            </section>
-        </article>
+            
+            <div class="place-meta">
+                <p><i class="fa-solid fa-user"></i> <strong>Host:</strong> John Doe</p>
+                <p><i class="fa-solid fa-tag"></i> <strong>Price:</strong> <span class="price-tag">$120</span> per night</p>
+            </div>
 
-        <section>
-            <h3 style="margin-top: 20px;">Reviews</h3>
-            <article class="review-card">
-                <p><strong>Jane Smith:</strong> "Amazing place! Loved the view."</p>
-                <p>Rating: ★★★★★</p>
-            </article>
+            <div class="description">
+                <p><i class="fa-solid fa-align-left"></i> <strong>Description:</strong> A beautiful ocean-view apartment with all amenities.</p>
+            </div>
 
-            <a href="add_review.html" class="details-button" style="margin-top: 15px;">Add Review</a>
+            <div class="amenities-section">
+                <h3><i class="fa-solid fa-list-check"></i> Amenities</h3>
+                <div class="amenities-tags">
+                    <span class="amenity-tag"><i class="fa-solid fa-wifi"></i> Wi-Fi</span>
+                    <span class="amenity-tag"><i class="fa-solid fa-water-ladder"></i> Pool</span>
+                    <span class="amenity-tag"><i class="fa-solid fa-snowflake"></i> Air Conditioning</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="reviews-section">
+            <h3><i class="fa-solid fa-star"></i> Reviews</h3>
+            <div class="review-card">
+                <p class="review-text"><i class="fa-solid fa-quote-left"></i> "Amazing place! Loved the view."</p>
+                <div class="review-info">
+                    <span><i class="fa-solid fa-user-pen"></i> Jane Smith</span>
+                    <span class="stars"><i class="fa-solid fa-star"></i> 5.0</span>
+                </div>
+            </div>
+            
+            <a href="add_review.html" class="add-review-btn"><i class="fa-solid fa-pen-to-square"></i> Add Review</a>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2026 HBnB. All rights reserved.</p>
     </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
