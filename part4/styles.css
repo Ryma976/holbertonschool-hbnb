@@ -2,10 +2,10 @@
 
 :root {
     --tuwaiq-purple: #4A154B;       /* بنفسجي طويق الملكي */
-    --tuwaiq-accent: #6B21A8;       /* بنفسجي فاتح للتأشير والأزرار */
-    --tuwaiq-light: #F3E8FF;        /* موف فاتح ناعم للبطاقات والتحديد */
-    --bg-lavender: #F8F7FA;         /* خلفية رمادي/موف بيبي فاتح جداً */
-    --text-dark: #1E1B4B;           /* كحلي غميق مائل للبنفسجي للنصوص */
+    --tuwaiq-accent: #6B21A8;       /* بنفسجي فاتح للتأشير */
+    --tuwaiq-light: #F3E8FF;        /* موف فاتح بيبي ناعم */
+    --bg-lavender: #F8F7FA;         /* خلفية رمادي/موف بيبي فاتح */
+    --text-dark: #1E1B4B;
     --text-muted: #64748B;
 }
 
@@ -27,28 +27,37 @@ body {
 header {
     background-color: #ffffff;
     border-bottom: 2px solid var(--tuwaiq-light);
-    padding: 16px 40px;
+    padding: 14px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 10px rgba(74, 21, 75, 0.04);
 }
 
+/* تحويل لون لوجو هولبرتون للبنفسجي باحترافية */
 .logo {
-    height: 40px;
+    height: 42px;
     width: auto;
+    object-fit: contain;
+    filter: hue-rotate(220deg) saturate(160%) brightness(0.7);
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    filter: hue-rotate(220deg) saturate(200%) brightness(0.8);
 }
 
 .login-button {
     background-color: var(--tuwaiq-purple);
     color: #ffffff;
-    padding: 9px 22px;
+    padding: 10px 24px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: all 0.25s ease;
-    box-shadow: 0 4px 12px rgba(74, 21, 75, 0.2);
+    box-shadow: 0 4px 12px rgba(74, 21, 75, 0.15);
 }
 
 .login-button:hover {
@@ -59,38 +68,38 @@ header {
 main {
     flex: 1;
     max-width: 1050px;
-    margin: 20px auto;
+    margin: 30px auto;
     width: 90%;
     text-align: center;
 }
 
 h2 {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: var(--tuwaiq-purple);
 }
 
 .filter-section {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     font-size: 0.95rem;
     color: var(--text-muted);
 }
 
 .filter-section select {
-    padding: 8px 14px;
+    padding: 8px 16px;
     border: 1px solid #CBD5E1;
     border-radius: 8px;
     outline: none;
     background-color: #ffffff;
     color: var(--text-dark);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .places-list {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
@@ -101,7 +110,7 @@ h2 {
     border-radius: 10px;          /* Required Parameter */
     padding: 10px;                /* Required Parameter */
     margin: 20px;                 /* Required Parameter */
-    box-shadow: 0 4px 16px rgba(74, 21, 75, 0.05);
+    box-shadow: 0 4px 16px rgba(74, 21, 75, 0.04);
 }
 
 .place-card {
@@ -110,7 +119,8 @@ h2 {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    min-height: 200px;
+    padding: 25px 15px !important;
+    min-height: 210px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -123,7 +133,6 @@ h2 {
 .place-card h3 {
     font-size: 1.2rem;
     color: var(--tuwaiq-purple);
-    margin-top: 10px;
 }
 
 .place-card p {
@@ -142,61 +151,10 @@ h2 {
     font-weight: 600;
     font-size: 0.9rem;
     transition: background-color 0.2s ease;
-    margin-bottom: 5px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
 }
 
 .details-button:hover, .submit-btn:hover {
     background-color: var(--tuwaiq-accent);
-}
-
-/* Amenities Tags Styling with Icons */
-.amenities-tags {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.amenity-tag {
-    background-color: var(--tuwaiq-light);
-    color: var(--tuwaiq-purple);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.form-container {
-    max-width: 450px;
-    margin: 20px auto;
-    text-align: left;
-}
-
-.form-group {
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    font-size: 0.88rem;
-    color: var(--text-dark);
-}
-
-.form-group input, .form-group textarea, .form-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
-    font-size: 0.9rem;
 }
 
 footer {
