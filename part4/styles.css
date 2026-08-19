@@ -1,15 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #ff385c;
-    --primary-hover: #e00b41;
-    --bg-main: #fcfcfc;        /* خلفية رمادي فاتح جداً ونظيفة */
-    --card-bg: #ffffff;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --border-color: #eaedd10;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --tuwaiq-purple: #4A154B;       /* بنفسجي طويق الملكي */
+    --tuwaiq-accent: #6B21A8;       /* بنفسجي فاتح للتأشير والأزرار */
+    --tuwaiq-light: #F3E8FF;        /* موف فاتح ناعم للبطاقات والتحديد */
+    --bg-lavender: #F8F7FA;         /* خلفية رمادي/موف بيبي فاتح جداً */
+    --text-dark: #1E1B4B;           /* كحلي غميق مائل للبنفسجي للنصوص */
+    --text-muted: #64748B;
 }
 
 * {
@@ -19,306 +16,194 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: var(--text-primary);
-    background-color: var(--bg-main);
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    background-color: var(--bg-lavender);
+    color: var(--text-dark);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
 }
 
 header {
     background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 14px 40px;
+    border-bottom: 2px solid var(--tuwaiq-light);
+    padding: 16px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    box-shadow: 0 2px 10px rgba(74, 21, 75, 0.04);
 }
 
 .logo {
-    height: 38px;
+    height: 40px;
     width: auto;
-    object-fit: contain;
 }
 
 .login-button {
-    background-color: var(--primary-color);
+    background-color: var(--tuwaiq-purple);
     color: #ffffff;
-    padding: 8px 20px;
+    padding: 9px 22px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.88rem;
-    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(74, 21, 75, 0.2);
 }
 
 .login-button:hover {
-    background-color: var(--primary-hover);
-    box-shadow: 0 4px 10px rgba(255, 56, 92, 0.25);
+    background-color: var(--tuwaiq-accent);
+    transform: translateY(-1px);
 }
 
 main {
     flex: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 32px 20px;
+    max-width: 1050px;
+    margin: 20px auto;
+    width: 90%;
+    text-align: center;
 }
 
-main h2 {
-    font-size: 1.5rem;
+h2 {
+    font-size: 1.7rem;
     font-weight: 700;
-    margin-bottom: 24px;
-    color: var(--text-primary);
-    letter-spacing: -0.3px;
+    margin-bottom: 20px;
+    color: var(--tuwaiq-purple);
+}
+
+.filter-section {
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.filter-section select {
+    padding: 8px 14px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    outline: none;
+    background-color: #ffffff;
+    color: var(--text-dark);
+    font-weight: 500;
 }
 
 .places-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* STRICT REQUIRED PARAMETERS WITH TUWAIQ STYLING */
+.place-card, .review-card, .place-details, .form-container {
+    background-color: #ffffff;
+    border: 1px solid #ddd;       /* Required Parameter */
+    border-radius: 10px;          /* Required Parameter */
+    padding: 10px;                /* Required Parameter */
+    margin: 20px;                 /* Required Parameter */
+    box-shadow: 0 4px 16px rgba(74, 21, 75, 0.05);
 }
 
 .place-card {
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    padding: 20px;
+    width: 280px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: var(--shadow-sm);
+    min-height: 200px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .place-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 24px rgba(74, 21, 75, 0.1);
+    border-color: var(--tuwaiq-light);
 }
 
 .place-card h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    color: var(--tuwaiq-purple);
+    margin-top: 10px;
+}
+
+.place-card p {
+    color: var(--text-muted);
     font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text-primary);
 }
 
-.place-card .price {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 16px;
-}
-
-.details-button {
-    display: inline-block;
-    text-align: center;
-    background-color: #0f172a;
+.details-button, .submit-btn {
+    background-color: var(--tuwaiq-purple);
     color: #ffffff;
-    padding: 9px 16px;
-    border-radius: 6px;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
     text-decoration: none;
-    font-size: 0.85rem;
     font-weight: 600;
+    font-size: 0.9rem;
     transition: background-color 0.2s ease;
+    margin-bottom: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.details-button:hover {
-    background-color: #1e293b;
+.details-button:hover, .submit-btn:hover {
+    background-color: var(--tuwaiq-accent);
+}
+
+/* Amenities Tags Styling with Icons */
+.amenities-tags {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.amenity-tag {
+    background-color: var(--tuwaiq-light);
+    color: var(--tuwaiq-purple);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .form-container {
-    max-width: 400px;
-    margin: 30px auto;
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    box-shadow: var(--shadow-sm);
+    max-width: 450px;
+    margin: 20px auto;
+    text-align: left;
 }
 
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 6px;
     font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
+    font-size: 0.88rem;
+    color: var(--text-dark);
 }
 
 .form-group input, .form-group textarea, .form-group select {
     width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-    border-color: var(--primary-color);
-}
-
-.submit-btn {
-    width: 100%;
     padding: 10px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-}
-
-.submit-btn:hover {
-    background-color: var(--primary-hover);
-}
-
-.place-details, .review-card {
-    background: var(--card-bg);
-    padding: 24px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 20px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    font-size: 0.9rem;
 }
 
 footer {
-    background-color: #ffffff;
-    border-top: 1px solid #e2e8f0;
+    background-color: var(--tuwaiq-purple);
+    color: #ffffff;
     text-align: center;
     padding: 20px;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-top: auto;
-}
-
-/* Place Details Page Styling */
-.centered-content {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.place-details, .reviews-section {
-    width: 100%;
-}
-
-.place-details h2 {
-    font-size: 1.8rem;
-    color: #1e293b;
-    margin-bottom: 20px;
-}
-
-.place-meta {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 16px;
-    font-size: 1rem;
-    color: #475569;
-}
-
-.place-meta i, .description i {
-    color: #ff385c;
-    margin-right: 6px;
-}
-
-.price-tag {
-    color: #ff385c;
-    font-weight: 700;
-}
-
-.amenities-section {
-    margin-top: 24px;
-    border-top: 1px solid #e2e8f0;
-    padding-top: 20px;
-}
-
-.amenities-section h3, .reviews-section h3 {
-    font-size: 1.2rem;
-    margin-bottom: 14px;
-    color: #1e293b;
-}
-
-.amenities-tags {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.amenity-tag {
-    background-color: #f1f5f9;
-    color: #334155;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid #cbd5e1;
-}
-
-.amenity-tag i {
-    color: #ff385c;
-}
-
-.reviews-section {
-    margin-top: 28px;
-}
-
-.review-card {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-
-.review-text {
-    font-style: italic;
-    color: #334155;
-    margin-bottom: 12px;
-}
-
-.review-info {
-    display: flex;
-    justify-content: space-between;
     font-size: 0.88rem;
-    font-weight: 600;
-    color: #64748b;
-}
-
-.stars {
-    color: #f59e0b;
-}
-
-.add-review-btn {
-    display: inline-block;
-    margin-top: 16px;
-    background-color: #0f172a;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: background 0.2s;
-}
-
-.add-review-btn:hover {
-    background-color: #1e293b;
+    margin-top: auto;
 }
