@@ -4,35 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HBnB - Accommodation Listing</title>
-    <link rel="icon" href="images/icon.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- Header Section -->
     <header>
-        <img src="images/logo.png" alt="HBnB Logo" class="logo">
-        <nav>
-            <a href="login.html" class="login-button">Login</a>
-        </nav>
+        <a href="index.html" class="logo-link">
+            <div class="brand-badge">
+                <!-- SVG مدمج احترافي: إطار المنزل + فرس البحر -->
+                <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 15 C35 15, 20 40, 20 62 C20 78, 32 88, 50 88 C68 88, 80 78, 80 62 C80 40, 65 15, 50 15 Z" 
+                          stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M52 30 C50 28, 44 30, 44 35 C44 40, 53 40, 53 46 C53 50, 47 52, 47 56 C47 60, 53 62, 53 66 C53 72, 45 74, 43 70" 
+                          stroke="#ffffff" stroke-width="5" stroke-linecap="round" fill="none"/>
+                    <circle cx="47" cy="33" r="1.5" fill="#ffffff"/>
+                </svg>
+                <span class="brand-text">hbnb</span>
+            </div>
+        </a>
+        <a href="login.html" class="login-button">Login</a>
     </header>
 
+    <!-- Main Content Section -->
     <main>
         <h2>Available Places</h2>
+
+        <!-- Filter Dropdown Section -->
+        <section class="filter-section">
+            <label for="country-filter">Filter by Country: </label>
+            <select id="country-filter">
+                <option value="all">All Countries</option>
+            </select>
+        </section>
+
+        <!-- Places Grid Container -->
         <section class="places-list">
+            <!-- Place Card 1 -->
             <article class="place-card">
                 <h3>Cozy Beach Apartment</h3>
-                <p class="price">$120 per night</p>
+                <p>$120 per night</p>
                 <a href="place.html" class="details-button">View Details</a>
             </article>
+
+            <!-- Place Card 2 -->
             <article class="place-card">
                 <h3>Modern Downtown Loft</h3>
-                <p class="price">$200 per night</p>
+                <p>$200 per night</p>
                 <a href="place.html" class="details-button">View Details</a>
             </article>
         </section>
     </main>
 
+    <!-- Footer Section -->
     <footer>
         <p>&copy; 2026 HBnB. All rights reserved.</p>
     </footer>
+
 </body>
 </html>
