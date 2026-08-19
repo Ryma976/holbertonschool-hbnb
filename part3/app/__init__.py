@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_restx import Api
+from flask_cors import CORS  # 1. أضفنا استدعاء مكتبة CORS
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -11,6 +12,9 @@ jwt = JWTManager()
 def create_app(config_class="config.DevelopmentConfig"):
     flask_app = Flask(__name__)
     flask_app.config.from_object(config_class)
+
+    # 2. أضفنا تفعيل الـ CORS لتسمح للفرونت إند بالتواصل مع الباك إند
+    CORS(flask_app, supports_credentials=True)
 
     db.init_app(flask_app)
     bcrypt.init_app(flask_app)
