@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (placesList) {
         checkAuthentication();
     }
+
+    // Task 3: Place Details Page Handler
+    const placeDetails = document.getElementById('place-details');
+    if (placeDetails) {
+        initPlaceDetailsPage();
+    }
 });
 
 // Helper: Get Cookie
@@ -46,9 +52,7 @@ async function loginUser(email, password) {
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
         });
 
@@ -84,13 +88,8 @@ function checkAuthentication() {
 let allPlacesData = [];
 
 async function fetchPlaces(token) {
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-
-    if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-    }
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
 
     try {
         const response = await fetch('http://127.0.0.1:5000/api/v1/places', { headers });
@@ -150,6 +149,96 @@ function setupPriceFilter() {
                 }
             }
         });
+    });
+}
+
+// Task 3: Place Details & Reviews
+function getPlaceIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+}
+
+async function initPlaceDetailsPage() {
+    const token = getCookie('token');
+    const placeId = getPlaceIdFromURL();
+
+    const addReviewSection = document.getElementById('add-review');
+    if (addReviewSection) {
+        if (!token) {
+            addReviewSection.style.display = 'none';
+        } else {
+            addReviewSection.style.display = 'block';
+        }
+    }
+
+    if (placeId) {
+        await fetchPlaceDetails(token, placeId);
+    }
+}
+
+async function fetchPlaceDetails(token, placeId) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}`, { headers });
+        if (response.ok) {
+            const place = await response.json();
+            displayPlaceDetails(place);
+        } else {
+            console.error('Failed to fetch place details');
+        }
+    } catch (error) {
+        console.error('Error fetching place details:', error);
+    }
+}
+
+function displayPlaceDetails(place) {
+    const placeDetails = document.getElementById('place-details');
+    if (!placeDetails) return;
+
+    const hostName = place.host_name || (place.user ? `${place.user.first_name} ${place.user.last_name}` : 'Unknown');
+    const amenitiesList = place.amenities ? place.amenities.map(a => a.name || a).join(', ') : 'None';
+
+    placeDetails.innerHTML = `
+        <h1>${place.title || place.name}</h1>
+        <p><strong>Host:</strong> ${hostName}</p>
+        <p><strong>Price per night:</strong> $${place.price_by_night || place.price}</p>
+        <p><strong>Description:</strong> ${place.description || 'No description provided.'}</p>
+        <p><strong>Amenities:</strong> ${amenitiesList}</p>
+    `;
+
+    if (place.reviews) {
+        displayReviews(place.reviews);
+    }
+}
+
+function displayReviews(reviews) {
+    const reviewsSection = document.getElementById('reviews');
+    if (!reviewsSection) return;
+
+    reviewsSection.innerHTML = '<h2>Reviews</h2>';
+
+    if (!reviews || reviews.length === 0) {
+        reviewsSection.innerHTML += '<p>No reviews yet.</p>';
+        return;
+    }
+
+    reviews.forEach(review => {
+        const reviewDiv = document.createElement('div');
+        reviewDiv.className = 'review-card';
+        reviewDiv.style.border = '1px solid #ddd';
+        reviewDiv.style.borderRadius = '5px';
+        reviewDiv.style.margin = '10px 0';
+        reviewDiv.style.padding = '10px';
+
+        const userName = review.user_name || (review.user ? `${review.user.first_name}` : 'Anonymous');
+
+        reviewDiv.innerHTML = `
+            <p><strong>${userName}:</strong> ${review.text || review.comment}</p>
+            <p><strong>Rating:</strong> ${review.rating || 'N/A'}/5</p>
+        `;
+        reviewsSection.appendChild(reviewDiv);
     });
 }
 
