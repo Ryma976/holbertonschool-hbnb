@@ -31,6 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (placeDetails) {
         initPlaceDetailsPage();
     }
+
+    // Task 4: Add Review Form Handler
+    const reviewForm = document.getElementById('review-form');
+    if (reviewForm) {
+        initAddReviewPage(reviewForm);
+    }
 });
 
 // Helper: Get Cookie
@@ -168,6 +174,10 @@ async function initPlaceDetailsPage() {
             addReviewSection.style.display = 'none';
         } else {
             addReviewSection.style.display = 'block';
+            const addReviewLink = addReviewSection.querySelector('a');
+            if (addReviewLink && placeId) {
+                addReviewLink.href = `add_review.html?id=${placeId}`;
+            }
         }
     }
 
@@ -240,6 +250,69 @@ function displayReviews(reviews) {
         `;
         reviewsSection.appendChild(reviewDiv);
     });
+}
+
+// Task 4: Add Review Functionality
+function initAddReviewPage(reviewForm) {
+    const token = getCookie('token');
+    if (!token) {
+        window.location.href = 'index.html';
+        return;
+    }
+
+    const placeId = getPlaceIdFromURL();
+
+    reviewForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const reviewTextInput = document.getElementById('review-text') || document.getElementById('review') || document.getElementById('comment');
+        const ratingInput = document.getElementById('rating');
+
+        const reviewText = reviewTextInput ? reviewTextInput.value.trim() : '';
+        const rating = ratingInput ? parseInt(ratingInput.value, 10) : 5;
+
+        if (!reviewText) {
+            alert('Please write a review.');
+            return;
+        }
+
+        await submitReview(token, placeId, reviewText, rating);
+    });
+}
+
+async function submitReview(token, placeId, reviewText, rating) {
+    const apiUrl = 'http://127.0.0.1:5000/api/v1/reviews';
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                place_id: placeId,
+                text: reviewText,
+                rating: rating
+            })
+        });
+
+        if (response.ok) {
+            alert('Review submitted successfully!');
+            if (placeId) {
+                window.location.href = `place.html?id=${placeId}`;
+            } else {
+                window.location.href = 'index.html';
+            }
+        } else {
+            const errorData = await response.json().catch(() => null);
+            const errorMessage = errorData?.msg || errorData?.message || response.statusText;
+            alert('Failed to submit review: ' + errorMessage);
+        }
+    } catch (error) {
+        console.error('Error submitting review:', error);
+        alert('Network error. Please try again.');
+    }
 }
 
 function showError(message) {
