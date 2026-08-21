@@ -1,60 +1,81 @@
-# HBnB Part 4 — Front-End Web Client
+# 🏰 HBnB — Front-End Web Client (Part 4)
 
-## Overview
-
-This directory contains the front-end application for HBnB, constructed using **HTML5**, **CSS3**, and **JavaScript (ES6)**. It connects asynchronously with the Flask RESTful API located in the `part4/Back` directory.
+Welcome to the front-end client interface for the **HBnB Application**. This dynamic web portal interacts asynchronously with the Flask RESTful API engine built in `part3`.
 
 ---
 
-## Folder Structure
+## 📁 Project Architecture
 
 ```text
-part4/Front/
-├── images/             # Icons and place card image assets
-├── index.html          # Main page displaying all places
-├── login.html          # User authentication form
-├── register.html       # New user registration form
-├── place.html          # Detailed place view and review list
-├── add_review.html     # Authenticated review submission form
-├── styles.css          # Main stylesheet
-├── scripts.js         # JavaScript ES6 API integration & session logic
-├── .gitignore          # Git exclusion rules
-└── README.md           # Documentation file
+part4/
+├── images/             # UI icons, place placeholders, and media assets
+├── index.html          # Main hub displaying available places & filters
+├── login.html          # User authentication portal
+├── register.html       # New user account registration form
+├── place.html          # Extended place detail breakdown & review list
+├── add_review.html     # Authenticated review submission page
+├── styles.css          # Design system, layout rules, & UI component styles
+├── scripts.js          # ES6 API integration, JWT handling, & DOM controllers
+├── .gitignore          # Repository exclusion rules
+└── README.md           # Project documentation
 
 ```
-## Page Routes & Functionalities
-
-- **`index.html`**: Displays a catalog of available places using card components (`.place-card`) and dynamic country filtering.
-- **`login.html`**: Form for authenticating users via API and storing session JWT tokens in cookies.
-- **`register.html`**: Form allowing new users to create accounts.
-- **`place.html`**: Shows extended details for a specific place including host, price, amenities, and user reviews (`.review-card`).
-- **`add_review.html`**: Accessible to logged-in users for submitting new place reviews.
 
 ---
 
-## Design Specifications
+## 🚀 Pages & Core Functionality
 
-All place and review card components adhere strictly to required UI parameters:
+* **`index.html`**: Catalog displaying available properties using dynamic `.place-card` modules with country/price filtering.
+* **`login.html`**: Secure login interface interacting with the auth endpoint to set session JWT tokens in cookies.
+* **`register.html`**: Onboarding form allowing new guests to join the platform.
+* **`place.html`**: Displays individual property spec pages including host info, amenities, and dynamic `.review-card` elements.
+* **`add_review.html`**: Protected review creation interface for verified logged-in users.
 
-- **Margin**: `20px`
-- **Padding**: `10px`
-- **Border**: `1px solid #ddd`
-- **Border Radius**: `10px`
-
-### Mandatory Classes
-`.logo`, `.login-button`, `.place-card`, `.details-button`, `.place-details`, `.place-info`, `.review-card`, `.form`, `.add-review`
 ---
-## How to Run Locally
 
-Start a simple web server within the `Front` directory:
+## 📐 Design System & UI Rules
+
+All dynamic components adhere strictly to the layout parameters:
+
+* **Margin**: `20px`
+* **Padding**: `10px`
+* **Border**: `1px solid #ddd`
+* **Border Radius**: `10px`
+
+### Mandatory CSS Selectors
+
+`.logo` • `.login-button` • `.place-card` • `.details-button` • `.place-details` • `.place-info` • `.review-card` • `.form` • `.add-review`
+
+---
+
+## ⚙️ How to Run & Test
+
+### 1. Launch Backend API (`part3`)
+
+Start the Flask backend server:
 
 ```bash
-cd part4/Front
-python3 -m http.server 8000
+cd ~/holbertonschool-hbnb/part3
+python3 run.py
+
 ```
-### 🧑‍💻 Authors
-Bayadir Aldossari
 
-Reem Alanazi
+### 2. Launch Front-End Web Client (`part4`)
 
-Shomokh Aldosari
+In a new terminal tab, spin up the HTTP web server:
+
+```bash
+cd ~/holbertonschool-hbnb/part4
+python3 -m http.server 8000
+
+```
+
+> **Preview Access:** Open `[http://127.0.0.1:8000/login.html](http://127.0.0.1:8000/login.html)` in your web browser or use the platform's active **Port Preview (8000)**.
+
+---
+
+## 👥 Authors
+
+* **Bayadir Aldossari**
+* **Reem Alanazi**
+* **Shomukh Aldosari**
