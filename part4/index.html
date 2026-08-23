@@ -17,7 +17,7 @@
             <div class="brand-divider"></div>
             <span class="brand-text">hbnb</span>
         </a>
-        <a href="login.html" class="login-button">Login</a>
+        <a href="login.html" id="login-link" class="login-button">Login</a>
     </header>
 
     <!-- Main Content Section -->
@@ -33,20 +33,8 @@
         </section>
 
         <!-- Places Grid Container -->
-        <section class="places-list">
-            <!-- Place Card 1 -->
-            <article class="place-card">
-                <h3>Cozy Beach Apartment</h3>
-                <p class="price">$120 / night</p>
-                <a href="place.html" class="details-button">View Details</a>
-            </article>
-
-            <!-- Place Card 2 -->
-            <article class="place-card">
-                <h3>Modern Downtown Loft</h3>
-                <p class="price">$200 / night</p>
-                <a href="place.html" class="details-button">View Details</a>
-            </article>
+        <section id="places-list" class="places-list">
+            <!-- سيتم تعبئة الأماكن هنا تلقائياً مع أزرار الأدمن إن وجد -->
         </section>
     </main>
 
@@ -55,5 +43,91 @@
         <p>&copy; 2026 HBnB. All rights reserved.</p>
     </footer>
 
+    <!-- سكريبت التشغيل المباشر وإدارة الأدمن -->
+    <script>
+        // دالة قراءة الكوكيز
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = getCookie('token');
+            const isAdmin = getCookie('is_admin') === 'true';
+            const loginLink = document.getElementById('login-link');
+
+            // إذا كان مسجل دخول، اخفاء زر Login أو تغليفه
+            if (token && loginLink) {
+                loginLink.textContent = 'Logout';
+                loginLink.href = '#';
+                loginLink.onclick = () => {
+                    document.cookie = 'token=; Max-Age=0; path=/;';
+                    document.cookie = 'is_admin=; Max-Age=0; path=/;';
+                    window.location.reload();
+                };
+            }
+
+            // إذا كان أدمن، أضف لوحة التحكم في الأعلى
+            if (isAdmin) {
+                const main = document.querySelector('main');
+                const adminDiv = document.createElement('div');
+                adminDiv.style.background = '#f8d7da';
+                adminDiv.style.padding = '12px';
+                adminDiv.style.textAlign = 'center';
+                adminDiv.style.fontWeight = 'bold';
+                adminDiv.style.color = '#721c24';
+                adminDiv.style.marginBottom = '20px';
+                adminDiv.style.borderRadius = '5px';
+                adminDiv.innerHTML = `⚠️ Admin Mode Active: Full Privileges Granted.`;
+                main.insertBefore(adminDiv, main.firstChild);
+            }
+
+            // بيانات الأماكن التجريبية
+            const places = [
+                { id: '1', title: 'Cozy Beach Apartment', price: 120, description: 'A nice cozy apartment near the beach.' },
+                { id: '2', title: 'Modern Downtown Loft', price: 200, description: 'A stylish loft right in the center of downtown.' }
+            ];
+
+            const placesList = document.getElementById('places-list');
+            placesList.innerHTML = '';
+
+            // عرض الأماكن وإضافة أزرار الأدمن إذا كان الحساب أدمن
+            places.forEach(place => {
+                const card = document.createElement('article');
+                card.className = 'place-card';
+                card.style.border = '1px solid #ddd';
+                card.style.borderRadius = '8px';
+                card.style.padding = '15px';
+                card.style.margin = '10px 0';
+                card.style.background = '#fff';
+
+                let adminButtons = '';
+                if (isAdmin) {
+                    adminButtons = `
+                        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc;">
+                            <button onclick="alert('Admin: Edit place ${place.id}')" style="background: #ffc107; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; font-weight: bold;">Edit</button>
+                            <button onclick="alert('Admin: Delete place ${place.id}'); this.closest('.place-card').remove();" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">Delete</button>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <h3>${place.title}</h3>
+                    <p class="price"><strong>Price:</strong> $${place.price} / night</p>
+                    <p>${place.description}</p>
+                    <a href="place.html?id=${place.id}" class="details-button">View Details</a>
+                    ${adminButtons}
+                `;
+
+                placesList.appendChild(card);
+            });
+        });
+    </script>
 </body>
 </html>
