@@ -139,17 +139,34 @@ function displayPlaces(places) {
     if (!placesList) return;
 
     placesList.innerHTML = '';
+    const isAdmin = getCookie('is_admin') === 'true';
 
     places.forEach(place => {
         const placeDiv = document.createElement('div');
         placeDiv.className = 'place-card';
+        placeDiv.style.border = '1px solid #ddd';
+        placeDiv.style.borderRadius = '8px';
+        placeDiv.style.padding = '15px';
+        placeDiv.style.margin = '15px 0';
+        placeDiv.style.background = '#fff';
         placeDiv.setAttribute('data-price', place.price_by_night || place.price || 0);
+
+        let adminActionsHTML = '';
+        if (isAdmin) {
+            adminActionsHTML = `
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc;">
+                    <button onclick="alert('Admin Action: Edit place ${place.id}')" style="background: #ffc107; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; font-weight: bold;">Edit</button>
+                    <button onclick="alert('Admin Action: Delete place ${place.id}'); this.closest('.place-card').remove();" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">Delete</button>
+                </div>
+            `;
+        }
 
         placeDiv.innerHTML = `
             <h3>${place.title || place.name}</h3>
             <p><strong>Price per night:</strong> $${place.price_by_night || place.price}</p>
             <p>${place.description || 'No description available.'}</p>
-            <a href="place.html?id=${place.id}" class="details-button">View Details</a>
+            <a href="place.html?id=${place.id}" class="details-button" style="display: inline-block; margin-top: 5px; color: #007bff; text-decoration: none; font-weight: bold;">View Details</a>
+            ${adminActionsHTML}
         `;
 
         placesList.appendChild(placeDiv);
