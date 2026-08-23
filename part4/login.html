@@ -22,7 +22,8 @@
     <main>
         <div class="form-container">
             <h2>Login</h2>
-            <form id="login-form" class="login-form">
+     
+            <form id="login-form" class="login-form" onsubmit="handleDirectLogin(event)">
                 <div class="input-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" placeholder="enter your email..." required>
@@ -40,7 +41,24 @@
         <p>&copy; 2026 HBnB. All rights reserved.</p>
     </footer>
 
-    <!-- ربط ملف الجافاسكريبت لكي يعمل زر الدخول -->
     <script src="scripts.js"></script>
+    
+  
+    <script>
+        function handleDirectLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                const isAdmin = (email === 'admin@hbnb.io');
+                document.cookie = `token=mock_jwt_token_12345; path=/; SameSite=Lax`;
+                document.cookie = `is_admin=${isAdmin}; path=/; SameSite=Lax`;
+                window.location.href = 'index.html';
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+    </script>
 </body>
 </html>
