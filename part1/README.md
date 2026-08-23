@@ -365,7 +365,6 @@ They collectively explain how the HBnB application is designed and how data flow
 
 ### Diagram Tools
 - Mermaid.js  
-- draw.io  
 
 ---
 ## Authors:
