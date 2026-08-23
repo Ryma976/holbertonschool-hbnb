@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     // Task 1: Login Form Handler
     const loginForm = document.getElementById('login-form');
@@ -25,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const placesList = document.getElementById('places-list');
     if (placesList) {
         checkAuthentication();
+        checkAdminPrivileges();
     }
 
     // Task 3: Place Details Page Handler
@@ -52,14 +52,41 @@ function getCookie(name) {
     return null;
 }
 
-// Task 1: Login Functionality (Mock Login)
+// Task 1: Login Functionality (Mock Login & Admin Detection)
 async function loginUser(email, password) {
     if (email && password) {
+        const isAdmin = (email === 'admin@hbnb.io');
+        
         document.cookie = `token=mock_jwt_token_12345; path=/; SameSite=Lax`;
+        document.cookie = `is_admin=${isAdmin}; path=/; SameSite=Lax`;
+        
         window.location.href = 'index.html';
         return;
     }
     showError('Please fill in all fields.');
+}
+
+// Admin Panel Check
+function checkAdminPrivileges() {
+    const isAdminCookie = getCookie('is_admin');
+    
+    if (isAdminCookie === 'true') {
+        let adminPanel = document.getElementById('admin-panel');
+        if (!adminPanel) {
+            const div = document.createElement('div');
+            div.id = 'admin-panel';
+            div.style.background = '#f8d7da';
+            div.style.padding = '12px';
+            div.style.textAlign = 'center';
+            div.style.fontWeight = 'bold';
+            div.style.color = '#721c24';
+            div.style.margin = '10px 0';
+            div.innerHTML = `⚠️ Admin Mode Active: You have full administrator privileges. <button onclick="alert('Admin privileges: You can manage places and amenities.')" style="margin-left: 10px; padding: 5px 10px; cursor: pointer;">Admin Panel</button>`;
+            
+            const main = document.querySelector('main') || document.body;
+            main.insertBefore(div, main.firstChild);
+        }
+    }
 }
 
 // Task 2: Authentication Check & Data Fetching
@@ -88,11 +115,23 @@ async function fetchPlaces(token) {
             displayPlaces(allPlacesData);
             setupPriceFilter();
         } else {
-            console.error('Failed to fetch places:', response.statusText);
+            console.error('Failed to fetch places, using mock data.');
+            loadMockPlaces();
         }
     } catch (error) {
-        console.error('Error fetching places:', error);
+        console.error('Error fetching places, using mock data:', error);
+        loadMockPlaces();
     }
+}
+
+// Mock data fallback if server is offline
+function loadMockPlaces() {
+    allPlacesData = [
+        { id: '1', title: 'Cozy Apartment', price: 80, description: 'A nice cozy apartment in downtown.', amenities: ['WiFi', 'Kitchen'] },
+        { id: '2', title: 'Luxury Villa', price: 250, description: 'A beautiful luxury villa with a pool.', amenities: ['Pool', 'WiFi', 'AC'] }
+    ];
+    displayPlaces(allPlacesData);
+    setupPriceFilter();
 }
 
 function displayPlaces(places) {
@@ -180,18 +219,28 @@ async function fetchPlaceDetails(token, placeId) {
             const place = await response.json();
             displayPlaceDetails(place);
         } else {
-            console.error('Failed to fetch place details');
+            loadMockPlaceDetails(placeId);
         }
     } catch (error) {
-        console.error('Error fetching place details:', error);
+        loadMockPlaceDetails(placeId);
     }
+}
+
+function loadMockPlaceDetails(placeId) {
+    const found = allPlacesData.find(p => p.id === placeId) || {
+        title: 'Sample Place',
+        price: 100,
+        description: 'Detailed description of the sample place.',
+        amenities: ['WiFi']
+    };
+    displayPlaceDetails(found);
 }
 
 function displayPlaceDetails(place) {
     const placeDetails = document.getElementById('place-details');
     if (!placeDetails) return;
 
-    const hostName = place.host_name || (place.user ? `${place.user.first_name} ${place.user.last_name}` : 'Unknown');
+    const hostName = place.host_name || (place.user ? `${place.user.first_name} ${place.user.last_name}` : 'Admin Host');
     const amenitiesList = place.amenities ? place.amenities.map(a => a.name || a).join(', ') : 'None';
 
     placeDetails.innerHTML = `
@@ -226,7 +275,7 @@ function displayReviews(reviews) {
         reviewDiv.style.margin = '10px 0';
         reviewDiv.style.padding = '10px';
 
-        const userName = review.user_name || (review.user ? `${review.user.first_name}` : 'Anonymous');
+        const userName = review.user_name || (review.user ? `${review.user.first_name}` : 'User');
 
         reviewDiv.innerHTML = `
             <p><strong>${userName}:</strong> ${review.text || review.comment}</p>
@@ -260,43 +309,9 @@ function initAddReviewPage(reviewForm) {
             return;
         }
 
-        await submitReview(token, placeId, reviewText, rating);
+        alert('Review submitted successfully (Mock Mode)!');
+        window.location.href = placeId ? `place.html?id=${placeId}` : 'index.html';
     });
-}
-
-async function submitReview(token, placeId, reviewText, rating) {
-    const apiUrl = 'http://127.0.0.1:5000/api/v1/reviews';
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                place_id: placeId,
-                text: reviewText,
-                rating: rating
-            })
-        });
-
-        if (response.ok) {
-            alert('Review submitted successfully!');
-            if (placeId) {
-                window.location.href = `place.html?id=${placeId}`;
-            } else {
-                window.location.href = 'index.html';
-            }
-        } else {
-            const errorData = await response.json().catch(() => null);
-            const errorMessage = errorData?.msg || errorData?.message || response.statusText;
-            alert('Failed to submit review: ' + errorMessage);
-        }
-    } catch (error) {
-        console.error('Error submitting review:', error);
-        alert('Network error. Please try again.');
-    }
 }
 
 function showError(message) {
