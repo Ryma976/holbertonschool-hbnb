@@ -43,7 +43,7 @@ class PlaceList(Resource):
         """Create a new place"""
         data = api.payload
 
-        # description اختيارية
+        
         data.setdefault("description", "")
 
         try:
